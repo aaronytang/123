@@ -5,7 +5,7 @@
 // `npm run build` produces ./out — the Next.js static export — which Pages
 // uploads as the site's assets.
 {
-  "name": "atportfolio-26",
+  "name": "123",
   "compatibility_date": "2026-05-11",
   "pages_build_output_dir": "./out",
   "assets": {
