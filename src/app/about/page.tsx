@@ -16,6 +16,7 @@ function loadSnapshot() {
     join(process.cwd(), "out/about.html"),
   ]);
   const stylesheetPath = join(process.cwd(), "out/portfolio-v3/style.css");
+  if (!snapshotPath) return { inlineStyle: "", normalizedBodyMarkup: "" };
   const snapshot = readFileSync(snapshotPath, "utf8");
   const inlineStyle = existsSync(stylesheetPath)
     ? readFileSync(stylesheetPath, "utf8")
@@ -38,13 +39,7 @@ function loadSnapshot() {
 }
 
 function firstExistingPath(paths: string[]) {
-  const path = paths.find((candidate) => existsSync(candidate));
-
-  if (!path) {
-    throw new Error(`Missing portfolio snapshot. Tried: ${paths.join(", ")}`);
-  }
-
-  return path;
+  return paths.find((candidate) => existsSync(candidate)) ?? null;
 }
 
 function extractInlineStyles(snapshot: string) {
