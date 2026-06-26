@@ -1,0 +1,228 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-berkeley-mono);
+  --font-heading: var(--font-geist);
+  --font-heading-tight: var(--font-geist);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-bg-marketing: var(--bg-marketing);
+  --color-bg-level-1: var(--bg-level-1);
+  --color-bg-level-2: var(--bg-level-2);
+  --color-bg-level-3: var(--bg-level-3);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-link: var(--brand-link);
+  --color-fg-primary: var(--fg-primary);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-tertiary: var(--fg-tertiary);
+  --color-fg-quaternary: var(--fg-quaternary);
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-green: var(--accent-green);
+  --color-accent-red: var(--accent-red);
+  --color-accent-blue: var(--accent-blue);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * linear.app design tokens. Values pulled directly from the live site's CSS
+ * (the --color-bg-level-*, --color-fg-*, --color-brand-bg, --color-link-*
+ * custom properties). The site ships dark-as-default, so that's what we
+ * mirror here. Light mode values are kept in .light for a future toggle.
+ */
+:root {
+  /* Surfaces (dark, primary experience) */
+  --background: #08090a;
+  --bg-marketing: #010102;
+  --bg-level-1: #0f1011;
+  --bg-level-2: #141516;
+  --bg-level-3: #191a1b;
+
+  /* Typography */
+  --foreground: #f7f8f8;
+  --fg-primary: #f7f8f8;
+  --fg-secondary: #d0d6e0;
+  --fg-tertiary: #8a8f98;
+  --fg-quaternary: #62666d;
+
+  /* Surfaces */
+  --card: var(--bg-level-1);
+  --card-foreground: var(--fg-primary);
+  --popover: var(--bg-level-2);
+  --popover-foreground: var(--fg-primary);
+
+  /* Brand (indigo / blurple) */
+  --brand: #5e6ad2;
+  --brand-hover: #7170ff;
+  --brand-link: #828fff;
+
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-level-2);
+  --secondary-foreground: var(--fg-primary);
+  --muted: var(--bg-level-2);
+  --muted-foreground: var(--fg-tertiary);
+  --accent: var(--bg-level-2);
+  --accent-foreground: var(--fg-primary);
+
+  /* Accents */
+  --accent-red:    #eb5757;
+  --accent-orange: #fc7840;
+  --accent-yellow: #f0bf00;
+  --accent-green:  #27a644;
+  --accent-blue:   #4ea7fc;
+  --accent-pink:   #f79ce0;
+  --destructive:   var(--accent-red);
+
+  /* Lines */
+  --border: #23252a;
+  --input:  #23252a;
+  --ring:   #3e3e44;
+
+  --chart-1: var(--brand-link);
+  --chart-2: var(--accent-orange);
+  --chart-3: var(--accent-yellow);
+  --chart-4: var(--accent-green);
+  --chart-5: var(--fg-tertiary);
+
+  --radius: 0.5rem;
+
+  --sidebar: var(--bg-level-1);
+  --sidebar-foreground: var(--fg-primary);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--bg-level-2);
+  --sidebar-accent-foreground: var(--fg-primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  --font-inter: "Inter", "Inter Variable", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-berkeley-mono: "Berkeley Mono", "SF Mono", ui-monospace, Menlo,
+    monospace;
+  --font-geist: "Geist", "Inter", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-tight: "Inter Tight", "Inter", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Light mode — matches linear.app's html[data-theme="light"] values. */
+.light {
+  --background: #ffffff;
+  --bg-marketing: #ffffff;
+  --bg-level-1: #f8f8f8;
+  --bg-level-2: #f4f4f4;
+  --bg-level-3: #f0f0f0;
+
+  --foreground: #282a30;
+  --fg-primary: #282a30;
+  --fg-secondary: #3c4149;
+  --fg-tertiary: #6f6e77;
+  --fg-quaternary: #86848d;
+
+  --card: #f8f8f8;
+  --card-foreground: var(--fg-primary);
+  --popover: #f4f4f4;
+  --popover-foreground: var(--fg-primary);
+
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f4;
+  --secondary-foreground: var(--fg-primary);
+  --muted: #f4f4f4;
+  --muted-foreground: var(--fg-tertiary);
+  --accent: #f4f4f4;
+  --accent-foreground: var(--fg-primary);
+
+  --border: #e9e8ea;
+  --input:  #e9e8ea;
+  --ring:   #dcdbdd;
+
+  --sidebar: #f8f8f8;
+  --sidebar-foreground: var(--fg-primary);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f4;
+  --sidebar-accent-foreground: var(--fg-primary);
+  --sidebar-border: #e9e8ea;
+  --sidebar-ring: #dcdbdd;
+
+  --font-inter: "Inter", "Inter Variable", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-berkeley-mono: "Berkeley Mono", "SF Mono", ui-monospace, Menlo,
+    monospace;
+  --font-geist: "Geist", "Inter", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-tight: "Inter Tight", "Inter", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  ::selection {
+    background: rgba(94, 106, 210, 0.35);
+    color: var(--fg-primary);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2 {
+    letter-spacing: -0.025em;
+  }
+}
+
+.project-geist,
+.project-geist * {
+  font-family: var(--font-geist);
+}

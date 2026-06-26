@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aaron Tang — Product Designer</title>
+<meta name="description" content="Product designer crafting interfaces that are precise, fast, and worth shipping. 5 years across fintech, gaming, logistics, and retail.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+<style>
+  /* =========================================================
+     Tokens - Linear design system
+     ========================================================= */
+  :root {
+    --bg-0: #08090a;
+    --bg-1: #0f1011;
+    --bg-2: #141516;
+    --bg-3: #1a1b1e;
+
+    --fg-1: #f7f8f8;
+    --fg-2: #d0d6e0;
+    --fg-3: #8a8f98;
+    --fg-4: #62666d;
+
+    --border: #23252a;
+    --border-80: rgba(35, 37, 42, 0.8);
+
+    --brand: #5e6ad2;
+    --brand-hover: #7170ff;
+    --brand-link: #828fff;
+
+    --r-card: 12px;
+    --r-inner: 8px;
+    --r-btn: 6px;
+    --r-pill: 9999px;
+
+    --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --dur: 150ms;
+
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --max: 1024px;
+    --nav-h: 72px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 16px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  img, svg { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: rgba(94, 106, 210, 0.35); color: var(--fg-1); }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .skip {
+    position: absolute;
+    top: -40px;
+    left: 16px;
+    padding: 8px 12px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: var(--r-btn);
+    font-size: 13px;
+    font-weight: 510;
+    z-index: 200;
+  }
+  .skip:focus { top: 16px; }
+
+  /* =========================================================
+     Layout
+     ========================================================= */
+  .wrap {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  section { position: relative; }
+
+  /* =========================================================
+     Nav
+     ========================================================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--nav-h);
+    background: rgba(8, 9, 10, 0.7);
+    backdrop-filter: saturate(140%) blur(20px);
+    -webkit-backdrop-filter: saturate(140%) blur(20px);
+    border-bottom: 1px solid var(--border-80);
+  }
+  .nav-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--fg-1);
+    padding: 6px 10px;
+    border-radius: var(--r-btn);
+    transition: background var(--dur) var(--ease);
+  }
+  .logo:hover { background: var(--bg-1); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--fg-3);
+    transition: color var(--dur) var(--ease);
+  }
+  .nav-links a:hover { color: var(--fg-1); }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 510;
+    border-radius: var(--r-btn);
+    transition: background var(--dur) var(--ease);
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--brand-hover); }
+
+  /* =========================================================
+     Hero
+     ========================================================= */
+  .hero {
+    padding: 128px 0 96px;
+    isolation: isolate;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -40px 0 auto 0;
+    height: 640px;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(60% 60% at 50% 0%, rgba(94, 106, 210, 0.10) 0%, rgba(94, 106, 210, 0.04) 40%, transparent 70%);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 12px 5px 10px;
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    color: var(--fg-2);
+    margin-bottom: 32px;
+    transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+  .badge:hover { border-color: #2e3138; color: var(--fg-1); }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--r-pill);
+    background: #3fb950;
+    box-shadow: inset 0 0 0 2px rgba(63, 185, 80, 0.25);
+  }
+  .badge-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--brand-link);
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-weight: 510;
+    color: var(--fg-1);
+    text-wrap: balance;
+    max-width: 18ch;
+    margin-bottom: 24px;
+  }
+
+  .hero h3 {
+    font-size: 20px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    font-weight: 510;
+    color: var(--fg-2);
+    margin-bottom: 16px;
+    max-width: 32ch;
+  }
+
+  .hero p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--fg-3);
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 510;
+    border-radius: var(--r-btn);
+    border: 1px solid transparent;
+    transition: background var(--dur) var(--ease),
+                color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { background: var(--brand-hover); }
+  .btn-primary:active { transform: translateY(1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg-1);
+    border-color: var(--border);
+  }
+  .btn-ghost:hover { background: var(--bg-1); border-color: #2e3138; }
+
+  .btn .arrow { transition: transform var(--dur) var(--ease); display: inline-block; }
+  .btn-primary:hover .arrow { transform: translateY(2px); }
+  .btn-ghost:hover .arrow { transform: translateX(2px); }
+
+  /* =========================================================
+     Section heads
+     ========================================================= */
+  .section-head { margin-bottom: 48px; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin-bottom: 20px;
+  }
+  .eyebrow .rule {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    display: inline-block;
+  }
+  h2.section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 510;
+    color: var(--fg-1);
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+
+  /* =========================================================
+     Work grid
+     ========================================================= */
+  .work {
+    padding: 96px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color var(--dur) var(--ease);
+  }
+  .card:hover { border-color: #292b30; }
+
+  .cover {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-2);
+    border-radius: var(--r-inner);
+    overflow: hidden;
+    margin-bottom: 20px;
+    isolation: isolate;
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+  }
+
+  .cover-okx {
+    background:
+      radial-gradient(120% 80% at 10% 90%, rgba(84, 221, 193, 0.14) 0%, transparent 55%),
+      radial-gradient(90% 70% at 85% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
+      linear-gradient(180deg, #0f1416 0%, #0a0d0f 100%);
+  }
+  .cover-ps {
+    background:
+      radial-gradient(120% 80% at 80% 20%, rgba(0, 112, 209, 0.22) 0%, transparent 60%),
+      radial-gradient(90% 70% at 15% 100%, rgba(50, 70, 180, 0.14) 0%, transparent 65%),
+      linear-gradient(180deg, #0a0f1c 0%, #080a14 100%);
+  }
+  .cover-next {
+    background:
+      radial-gradient(110% 80% at 20% 20%, rgba(255, 196, 70, 0.12) 0%, transparent 55%),
+      radial-gradient(100% 80% at 90% 90%, rgba(120, 80, 30, 0.14) 0%, transparent 65%),
+      linear-gradient(180deg, #141108 0%, #0b0906 100%);
+  }
+  .cover-walmart {
+    background:
+      radial-gradient(110% 80% at 15% 10%, rgba(30, 120, 220, 0.18) 0%, transparent 60%),
+      radial-gradient(90% 70% at 95% 95%, rgba(255, 196, 70, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #0a1019 0%, #080b11 100%);
+  }
+  .cover-rumble {
+    background:
+      radial-gradient(120% 80% at 80% 20%, rgba(255, 90, 70, 0.18) 0%, transparent 55%),
+      radial-gradient(90% 70% at 20% 100%, rgba(255, 140, 60, 0.12) 0%, transparent 60%),
+      linear-gradient(180deg, #160c0a 0%, #0b0605 100%);
+  }
+
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+    mask-image: radial-gradient(circle at center, #000 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 75%);
+    opacity: 0.6;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--fg-4);
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 510;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--fg-1);
+    margin-bottom: 6px;
+  }
+  .card-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--fg-3);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .card-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--fg-3);
+    transition: color var(--dur) var(--ease);
+  }
+  .card-link .arrow { display: inline-block; }
+  .card:hover .card-link { color: var(--fg-1); }
+  .card > .cover-link {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 1;
+    text-indent: -9999em;
+    overflow: hidden;
+  }
+
+  /* =========================================================
+     About strip
+     ========================================================= */
+  .about {
+    padding: 56px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .about-bio {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--fg-2);
+    max-width: 36ch;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .stat {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--fg-3);
+    transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .stat:hover { color: var(--fg-1); border-color: #2e3138; }
+
+  /* =========================================================
+     Footer
+     ========================================================= */
+  footer.site-footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--fg-4);
+  }
+  .footer-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-2);
+    letter-spacing: 0.02em;
+  }
+  .footer-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-right a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--fg-3);
+    transition: color var(--dur) var(--ease);
+  }
+  .footer-right a:hover { color: var(--fg-1); }
+  .icon-link {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-btn);
+    justify-content: center;
+    border: 1px solid var(--border);
+    transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+  .icon-link:hover { border-color: #2e3138; }
+
+  /* =========================================================
+     Responsive
+     ========================================================= */
+  @media (max-width: 768px) {
+    :root { --nav-h: 64px; }
+
+    .nav-links { display: none; }
+
+    .hero { padding: 80px 0 64px; }
+    .hero h1 {
+      font-size: clamp(36px, 9vw, 44px);
+      letter-spacing: -0.03em;
+    }
+    .hero h3 { font-size: 17px; }
+
+    .work { padding: 72px 0; }
+    .section-head { margin-bottom: 32px; }
+
+    .grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .stats { justify-content: flex-start; }
+
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+
+  @media (max-width: 420px) {
+    .hero-ctas { flex-direction: column; align-items: stretch; }
+    .hero-ctas .btn { justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="nav" role="banner">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="Aaron Tang - home">AT</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <a href="mailto:aarontang.design@gmail.com" class="nav-cta">Get in touch</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <h1 id="hero-title">
+        Product designer crafting interfaces that are precise, fast, and worth shipping.
+      </h1>
+
+      <h3>5 years across fintech, gaming, logistics, and retail.</h3>
+
+      <p>
+        I design end-to-end &mdash; from 0&rarr;1 concepts through production-ready specs.
+        Currently open to senior IC and lead roles.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary" data-smooth>
+          View work <span class="arrow" aria-hidden="true">&darr;</span>
+        </a>
+        <a href="#about" class="btn btn-ghost" data-smooth>
+          About me <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="eyebrow">
+          <span>01</span>
+          <span class="rule" aria-hidden="true"></span>
+          <span>Selected work</span>
+          <span aria-hidden="true">&rarr;</span>
+        </span>
+        <h2 id="work-title" class="section-title">Work that shipped.</h2>
+      </header>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="cover cover-okx" aria-hidden="true"></div>
+          <div class="card-meta">
+            <span class="tag">Mobile Design</span>
+          </div>
+          <h3 class="card-title">OKX</h3>
+          <p class="card-desc">Redesigned recurring buy UX across crypto products.</p>
+          <a href="/homepage-test/okx/" class="card-link">View case study <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a href="/homepage-test/okx/" class="cover-link" aria-label="View OKX case study">View OKX case study</a>
+        </article>
+
+        <article class="card">
+          <div class="cover cover-ps" aria-hidden="true"></div>
+          <div class="card-meta">
+            <span class="tag">Web Design</span>
+          </div>
+          <h3 class="card-title">PlayStation</h3>
+          <p class="card-desc">Rebuilt discovery and commerce flows for PS Store.</p>
+          <a href="#" class="card-link">View case study <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a href="#" class="cover-link" aria-label="View PlayStation case study">View PlayStation case study</a>
+        </article>
+
+        <article class="card">
+          <div class="cover cover-next" aria-hidden="true"></div>
+          <div class="card-meta">
+            <span class="tag">Web Design</span>
+          </div>
+          <h3 class="card-title">Next Trucking</h3>
+          <p class="card-desc">End-to-end freight marketplace for owner-operators.</p>
+          <a href="#" class="card-link">View case study <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a href="#" class="cover-link" aria-label="View Next Trucking case study">View Next Trucking case study</a>
+        </article>
+
+        <article class="card">
+          <div class="cover cover-walmart" aria-hidden="true"></div>
+          <div class="card-meta">
+            <span class="tag">Web Design</span>
+          </div>
+          <h3 class="card-title">Walmart Global Sourcing</h3>
+          <p class="card-desc">Internal tooling for global supplier management.</p>
+          <a href="#" class="card-link">View case study <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a href="#" class="cover-link" aria-label="View Walmart Global Sourcing case study">View Walmart Global Sourcing case study</a>
+        </article>
+
+        <article class="card">
+          <div class="cover cover-rumble" aria-hidden="true"></div>
+          <div class="card-meta">
+            <span class="tag">Mobile + IoT</span>
+          </div>
+          <h3 class="card-title">Rumble</h3>
+          <p class="card-desc">Connected fitness app paired with smart resistance device.</p>
+          <a href="#" class="card-link">View case study <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a href="#" class="cover-link" aria-label="View Rumble case study">View Rumble case study</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-label="About">
+    <div class="wrap about-inner">
+      <p class="about-bio">
+        Senior product designer based in the Pacific Northwest.
+      </p>
+      <div class="stats" role="list">
+        <span class="stat" role="listitem">5+ years</span>
+        <span class="stat" role="listitem">10+ shipped products</span>
+        <span class="stat" role="listitem">OKX &middot; PlayStation &middot; Walmart</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap footer-inner">
+    <div class="footer-left">
+      <span class="footer-logo">AT</span>
+      <span>&copy; 2026 Aaron Tang</span>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:aarontang.design@gmail.com">aarontang.design@gmail.com</a>
+      <a href="#" class="icon-link" aria-label="LinkedIn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V21h-4v-5.3c0-1.27-.03-2.9-1.77-2.9-1.77 0-2.05 1.38-2.05 2.8V21H10V9z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (!id || id === '#' || id.length < 2) return;
+        var el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', id);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

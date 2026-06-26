@@ -1,0 +1,11 @@
+// Cloudflare Pages config. `pages_build_output_dir` is the Pages-specific
+// key (vs. `assets.directory` used by Cloudflare Workers). Cloudflare warns
+// on every deploy if this file is present but missing that key.
+//
+// `npm run build` produces ./out — the Next.js static export — which Pages
+// uploads as the site's assets.
+{
+  "name": "atportfolio-26",
+  "compatibility_date": "2026-05-11",
+  "pages_build_output_dir": "./out"
+}

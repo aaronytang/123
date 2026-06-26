@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next Trucking — 25% more throughput by designing for automation · Aaron Tang</title>
+<meta name="description" content="Lead design for next-generation dispatching and operations in logistics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/homepage-test/next-trucking/style.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="nav-name" href="/">Aaron Tang</a>
+    <nav class="nav-links">
+      <a href="/homepage-test/">Work</a>
+      <a href="/homepage-test/about/">About</a>
+      <a href="https://atangdesign.com/architecture">Architecture</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="case-hero">
+    <p class="eyebrow r">Next Trucking<span class="dot">·</span>Lead Product Designer<span class="dot">·</span>2021–Present · Logistics</p>
+    <h1 class="display r">25% more throughput by designing for automation, not screens</h1>
+    <p class="lede r">Next is automating freight dispatch. My job wasn't better screens for human tasks — it was removing the screens, and making the moments that still need a human count.</p>
+
+    <div class="stats r">
+      <div class="stat"><b>25%</b><span>throughput lift</span></div>
+      <div class="stat"><b>$5</b><span>loss reduction per container</span></div>
+      <div class="stat"><b>1</b><span>unified design system across all Next products</span></div>
+      <div class="stat"><b>Less UI</b><span>the core design strategy — by intent</span></div>
+    </div>
+
+    <figure class="r"><img src="https://atangdesign.com/wp-content/uploads/shipment_list-1.svg" alt="Next Trucking dispatch system" loading="lazy"></figure>
+  </section>
+
+  <section class="section r">
+    <p class="eyebrow">Influence</p>
+    <h2 class="h-section">One design language for every Next product — an initiative I started</h2>
+    <p class="prose">No one asked for a design system; shipping without one was just slower every sprint. I partnered with engineering to build a unified system now adopted across all Next web and mobile products — every team ships faster from the same parts.</p>
+    <figure><img src="https://atangdesign.com/wp-content/uploads/table_component.png" alt="Design system table component" loading="lazy"></figure>
+  </section>
+
+  <section class="section r">
+    <p class="eyebrow">Strategy</p>
+    <h2 class="h-section">Design foundation for a system that mostly runs itself</h2>
+    <p class="prose">In an automated dispatch system, design doesn't serve human tasks — it serves exception management, the moments automation hands back to a person. The architecture below is built around that inversion.</p>
+    <figure><img src="https://atangdesign.com/wp-content/uploads/atlas-diagram-2-1.png" alt="Automated system architecture" loading="lazy"></figure>
+  </section>
+
+  <p class="statement r">The best interface for an automated process is <em>almost none</em>.</p>
+
+  <section class="section r">
+    <p class="eyebrow">Approach</p>
+    <h2 class="h-section">Better experience through less UI</h2>
+    <p class="prose">Each removed input is an error that can't happen and a minute a dispatcher gets back. The work was deleting steps from the process itself, not polishing the steps that shouldn't exist.</p>
+    <figure><img src="https://atangdesign.com/wp-content/uploads/flow.svg" alt="Reduced process flow" loading="lazy"></figure>
+  </section>
+
+  <section class="section r">
+    <p class="eyebrow">Outcome</p>
+    <h2 class="h-section">Exceptions surfaced with the data to act — $5 saved per container, 25% more throughput</h2>
+    <p class="prose">When automation needs a human, the system presents the exception with the context and the action — not a dashboard to dig through. That single design decision carries the business numbers on this page.</p>
+    <figure><img src="https://atangdesign.com/wp-content/uploads/exception.png" alt="Exception management with actionable data" loading="lazy"></figure>
+  </section>
+
+  <section class="section r">
+    <p class="eyebrow">Strategic trade-offs</p>
+    <h2 class="h-section">What we chose — and what we deliberately didn't build</h2>
+    <ul class="list">
+      <li><span class="n">01</span><div><b>Stopped optimizing human task speed.</b> Polishing workflows that automation would absorb within quarters was sunk cost. Investment went to the exception layer instead — the part that gets more valuable as automation grows.</div></li>
+      <li><span class="n">02</span><div><b>No per-role dashboards.</b> Dashboards invite monitoring; exceptions demand action. We built actionable queues over passive overviews, even though dashboards were the requested feature.</div></li>
+      <li><span class="n">03</span><div><b>Design system before new features.</b> A quarter of slower feature delivery bought permanently faster delivery for every team after. I made that case to engineering leadership and it held.</div></li>
+    </ul>
+  </section>
+
+  <section class="section r">
+    <p class="eyebrow">Post-launch</p>
+    <h2 class="h-section">The numbers that mattered to the business</h2>
+    <p class="prose">25% throughput lift and $5 loss reduction per container at freight volume. The design system continues to compound — every new Next product starts from shared, proven parts instead of a blank file.</p>
+  </section>
+
+  <div class="next-case r">
+    <a href="walmart.html">
+      <p class="eyebrow">Next case study</p>
+      <span class="t">Walmart — Cutting merchant busywork across 6 global markets</span>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner r">
+    <p class="eyebrow">Get in touch</p>
+    <a class="foot-mail" href="mailto:aarontang.design@gmail.com">aarontang.design@gmail.com</a>
+    <div class="foot-row">
+      <span>© 2026 Aaron Tang</span>
+      <nav>
+        <a href="https://www.linkedin.com/in/aaron-tang">LinkedIn</a>
+        <a href="https://atangdesign.com/architecture">Architecture</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
+</script>
+</body>
+</html>

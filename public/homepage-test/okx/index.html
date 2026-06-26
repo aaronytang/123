@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OKX — Recurring Buy · Aaron Tang</title>
+<meta name="description" content="Case study: Building a recurring buy system users could trust over time. Three versions, three different problems.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#08090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+<style>
+  :root {
+    --bg-0: #08090a;
+    --bg-1: #0f1011;
+    --bg-2: #141516;
+    --bg-3: #1a1b1e;
+    --fg-1: #f7f8f8;
+    --fg-2: #d0d6e0;
+    --fg-3: #8a8f98;
+    --fg-4: #62666d;
+    --border: #23252a;
+    --border-strong: #2e3138;
+    --border-80: rgba(35, 37, 42, 0.8);
+    --brand: #5e6ad2;
+    --brand-hover: #7170ff;
+    --brand-link: #828fff;
+    --accent-green: #3fb950;
+    --proj-accent: #54ddc1;
+    --proj-accent-soft: rgba(84, 221, 193, 0.18);
+    --proj-tint-a: rgba(84, 221, 193, 0.14);
+    --proj-tint-b: rgba(255, 255, 255, 0.04);
+    --proj-floor-a: #0f1416;
+    --proj-floor-b: #0a0d0f;
+    --r-card: 12px;
+    --r-inner: 8px;
+    --r-btn: 6px;
+    --r-pill: 9999px;
+    --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --dur: 150ms;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --max: 1024px;
+    --narrow: 720px;
+    --nav-h: 72px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font);
+    background: var(--bg-0);
+    color: var(--fg-2);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: rgba(94, 106, 210, 0.35); color: var(--fg-1); }
+  :focus-visible { outline: 2px solid var(--brand-link); outline-offset: 2px; border-radius: 2px; }
+
+  .skip { position: absolute; top: -40px; left: 16px; padding: 8px 12px; background: var(--brand); color: #fff; border-radius: var(--r-btn); font-size: 13px; font-weight: 510; z-index: 200; }
+  .skip:focus { top: 16px; }
+
+  .wrap { max-width: var(--max); margin-inline: auto; padding-inline: 24px; }
+  .wrap-narrow { max-width: var(--narrow); margin-inline: auto; padding-inline: 24px; }
+  .wrap-full { max-width: 100%; padding-inline: 0; }
+
+  section { position: relative; }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 100; height: var(--nav-h); background: rgba(8, 9, 10, 0.7); backdrop-filter: saturate(140%) blur(20px); -webkit-backdrop-filter: saturate(140%) blur(20px); border-bottom: 1px solid var(--border-80); }
+  .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .logo { font-family: var(--mono); font-size: 14px; font-weight: 500; letter-spacing: 0.02em; color: var(--fg-1); padding: 6px 10px; border-radius: var(--r-btn); transition: background var(--dur) var(--ease); }
+  .logo:hover { background: var(--bg-1); }
+  .crumb { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--fg-4); text-transform: uppercase; }
+  .crumb a { color: var(--fg-4); transition: color var(--dur) var(--ease); }
+  .crumb a:hover { color: var(--fg-1); }
+  .crumb .sep { opacity: 0.6; }
+  .crumb .here { color: var(--fg-2); }
+  .nav-cta { display: inline-flex; align-items: center; padding: 8px 16px; background: var(--brand); color: #fff; font-size: 14px; font-weight: 510; border-radius: var(--r-btn); transition: background var(--dur) var(--ease); white-space: nowrap; }
+  .nav-cta:hover { background: var(--brand-hover); }
+
+  /* Scroll progress */
+  .scroll-progress { position: sticky; top: var(--nav-h); height: 1px; width: 100%; z-index: 99; background: transparent; }
+  .scroll-progress::after { content: ""; display: block; height: 100%; width: var(--p, 0%); background: linear-gradient(90deg, var(--brand) 0%, var(--proj-accent) 100%); transition: width 40ms linear; }
+
+  /* Hero */
+  .hero { padding: 96px 0 72px; isolation: isolate; }
+  .hero::before { content: ""; position: absolute; inset: -40px 0 auto 0; height: 560px; pointer-events: none; z-index: -1; background: radial-gradient(60% 60% at 50% 0%, rgba(94, 106, 210, 0.08) 0%, rgba(94, 106, 210, 0.03) 40%, transparent 70%); }
+  .hero-tags { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em; color: var(--fg-4); margin-bottom: 24px; flex-wrap: wrap; }
+  .hero-tags .tag-sep { color: var(--border-strong); }
+  .hero h1 { font-size: clamp(36px, 5.6vw, 56px); line-height: 1.08; letter-spacing: -0.04em; font-weight: 510; color: var(--fg-1); text-wrap: balance; max-width: 22ch; margin-bottom: 24px; }
+  .hero-sub { font-size: 17px; line-height: 1.55; letter-spacing: -0.01em; color: var(--fg-3); max-width: 60ch; text-wrap: balance; margin-bottom: 20px; }
+  .hero-body { font-size: 15px; line-height: 1.6; color: var(--fg-3); max-width: 60ch; margin-bottom: 48px; }
+
+  /* Meta grid */
+  .meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding-top: 24px; border-top: 1px solid var(--border); }
+  .meta-cell { padding: 16px 24px 0 0; border-right: 1px solid var(--border); min-width: 0; }
+  .meta-cell:last-child { border-right: 0; padding-right: 0; }
+  .meta-key { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 8px; display: block; }
+  .meta-val { font-size: 14px; font-weight: 510; color: var(--fg-1); line-height: 1.4; }
+
+  /* Full-width image block */
+  .img-full { width: 100%; padding: 48px 0; }
+  .img-full-inner { width: 100%; aspect-ratio: 16 / 9; background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+  .img-full-inner img { width: 100%; height: 100%; object-fit: cover; }
+  .img-full-inner .placeholder { font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); text-align: center; padding: 24px; }
+  .img-full-caption { max-width: var(--max); margin-inline: auto; padding: 12px 24px 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em; color: var(--fg-4); }
+
+  /* Section shell */
+  .section { padding: 96px 0; border-top: 1px solid var(--border); }
+  .section-head { display: flex; flex-direction: column; gap: 20px; margin-bottom: 64px; max-width: 720px; }
+  .section-eyebrow { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); }
+  .section-eyebrow .num { color: var(--fg-2); }
+  .section-eyebrow .rule { flex: 1; height: 1px; background: var(--border); max-width: 48px; }
+  .section-title { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -0.035em; font-weight: 510; color: var(--fg-1); text-wrap: balance; max-width: 22ch; }
+  .section-lede { font-size: 18px; line-height: 1.5; letter-spacing: -0.01em; color: var(--fg-3); max-width: 56ch; }
+
+  .section-body { max-width: 720px; }
+  .section-body > p:not([class]) { font-size: 16px; line-height: 1.6; color: var(--fg-2); max-width: 64ch; }
+  .section-body > p:not([class]) + p:not([class]) { margin-top: 16px; }
+  .section-body em { font-style: normal; color: var(--fg-1); }
+
+  .sub-heading { font-size: 20px; font-weight: 510; color: var(--fg-1); letter-spacing: -0.02em; margin-top: 48px; margin-bottom: 16px; line-height: 1.3; }
+  .section-body > .sub-heading:first-child { margin-top: 0; }
+
+  /* Sidebar / aside callout */
+  .sidebar { margin-top: 32px; padding: 24px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+  .sidebar-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--proj-accent); margin-bottom: 12px; }
+  .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .sidebar li { font-size: 14px; color: var(--fg-2); line-height: 1.5; padding-left: 16px; position: relative; }
+  .sidebar li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--border-strong); }
+
+  /* Callout card */
+  .callout { margin-top: 32px; padding: 24px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+  .callout-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--proj-accent); margin-bottom: 8px; }
+  .callout-title { font-size: 17px; font-weight: 510; color: var(--fg-1); margin-bottom: 6px; line-height: 1.4; letter-spacing: -0.01em; }
+  .callout-body { font-size: 14px; line-height: 1.55; color: var(--fg-3); }
+
+  /* Metric tiles */
+  .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+  .metric { padding: 24px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+  .metric-key { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 14px; }
+  .metric-val { font-size: clamp(32px, 4vw, 44px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 510; color: var(--fg-1); margin-bottom: 8px; }
+  .metric-val .unit { font-size: 0.55em; color: var(--proj-accent); margin-left: 4px; letter-spacing: 0; font-weight: 510; }
+  .metric-note { font-size: 13px; color: var(--fg-3); line-height: 1.5; }
+
+  /* Version cards */
+  .version-card { margin-top: 32px; padding: 32px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); }
+  .version-card + .version-card { margin-top: 16px; }
+  .version-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--proj-accent); margin-bottom: 8px; }
+  .version-title { font-size: 18px; font-weight: 510; color: var(--fg-1); letter-spacing: -0.01em; margin-bottom: 12px; line-height: 1.3; }
+  .version-body { font-size: 14px; line-height: 1.6; color: var(--fg-3); }
+  .version-body ul { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .version-body li { padding-left: 16px; position: relative; }
+  .version-body li::before { content: ""; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--fg-4); }
+  .version-results { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--fg-2); }
+  .version-results strong { color: var(--fg-1); font-weight: 510; }
+  .version-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .version-tags span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.03em; padding: 4px 8px; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r-pill); color: var(--fg-4); }
+
+  /* Numbered list */
+  ol.steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 4px; margin-top: 16px; }
+  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 36px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--border); }
+  ol.steps li:last-child { border-bottom: 1px solid var(--border); }
+  ol.steps li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; color: var(--fg-4); padding-top: 2px; }
+  ol.steps li h4 { font-size: 15px; font-weight: 510; color: var(--fg-1); margin-bottom: 4px; letter-spacing: -0.01em; }
+  ol.steps li p { font-size: 14px; color: var(--fg-3); line-height: 1.55; max-width: 58ch; }
+
+  /* Simple bullet list */
+  ul.bullets { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  ul.bullets li { font-size: 15px; color: var(--fg-2); line-height: 1.5; padding-left: 18px; position: relative; }
+  ul.bullets li::before { content: ""; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--fg-4); }
+
+  /* Table */
+  .data-table { width: 100%; margin-top: 24px; border-collapse: collapse; }
+  .data-table th, .data-table td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .data-table th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); font-weight: 400; }
+  .data-table td { color: var(--fg-2); }
+  .data-table td:first-child { color: var(--fg-1); font-weight: 510; }
+
+  /* Next project */
+  .next { padding: 96px 0 120px; border-top: 1px solid var(--border); }
+  .next-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 32px; background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); transition: border-color var(--dur) var(--ease); }
+  .next-inner:hover { border-color: var(--border-strong); }
+  .next-kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 6px; }
+  .next-title { font-size: 22px; font-weight: 510; letter-spacing: -0.02em; color: var(--fg-1); line-height: 1.3; }
+  .next-arrow { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); color: var(--fg-2); display: inline-flex; align-items: center; justify-content: center; transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+  .next-inner:hover .next-arrow { border-color: var(--proj-accent); color: var(--proj-accent); transform: translateX(4px); }
+
+  /* Footer */
+  footer.site-footer { padding: 40px 0; border-top: 1px solid var(--border); }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--fg-4); }
+  .footer-left { display: inline-flex; align-items: center; gap: 14px; }
+  .footer-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--fg-2); letter-spacing: 0.02em; }
+  .footer-right { display: inline-flex; align-items: center; gap: 16px; }
+  .footer-right a { display: inline-flex; align-items: center; gap: 6px; color: var(--fg-3); transition: color var(--dur) var(--ease); }
+  .footer-right a:hover { color: var(--fg-1); }
+  .icon-link { width: 32px; height: 32px; border-radius: var(--r-btn); justify-content: center; border: 1px solid var(--border); transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+  .icon-link:hover { border-color: var(--border-strong); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .meta { grid-template-columns: repeat(2, 1fr); }
+    .meta-cell { padding: 16px 16px 16px 0; border-right: 1px solid var(--border); }
+    .meta-cell:nth-child(2) { border-right: 0; padding-right: 0; }
+    .meta-cell:nth-child(3), .meta-cell:nth-child(4) { border-top: 1px solid var(--border); padding-top: 16px; }
+    .meta-cell:nth-child(4) { border-right: 0; padding-right: 0; }
+    .metrics { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    :root { --nav-h: 64px; }
+    .crumb .hide-sm { display: none; }
+    .hero { padding: 64px 0 48px; }
+    .hero h1 { font-size: clamp(32px, 9vw, 40px); letter-spacing: -0.03em; }
+    .section { padding: 64px 0; }
+    .next { padding: 64px 0 80px; }
+    .next-inner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .scroll-progress::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#context">Skip to case study</a>
+
+<!-- Nav -->
+<header class="nav" role="banner">
+  <div class="wrap nav-inner">
+    <a href="/homepage-test/" class="logo" aria-label="Back to Aaron Tang home">AT</a>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/homepage-test/">Work</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span class="here">OKX</span>
+    </nav>
+    <a href="mailto:aarontang.design@gmail.com" class="nav-cta">Get in touch</a>
+  </div>
+</header>
+
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-tags">
+        <span>OKX &middot; 2024</span>
+        <span class="tag-sep">|</span>
+        <span>Lead Designer</span>
+        <span class="tag-sep">|</span>
+        <span>iOS + Android</span>
+        <span class="tag-sep">|</span>
+        <span>3 versions shipped</span>
+      </div>
+
+      <h1 id="hero-title">Building a recurring buy system users could trust over time</h1>
+
+      <p class="hero-sub">
+        V1 shipped quickly and underperformed. Fixing it took more than simplifying the flow. We had to separate setup friction, payment infrastructure, and long-term trust in the system itself. Later, user research redirected V3 away from passive yield and toward conditional execution control.
+      </p>
+
+      <p class="hero-body">
+        What shipped across those three versions wasn&rsquo;t just a cleaner DCA experience. It became a more reliable execution system for users who already knew what they were trying to do.
+      </p>
+
+      <dl class="meta">
+        <div class="meta-cell">
+          <dt class="meta-key">Role</dt>
+          <dd class="meta-val">Lead Designer</dd>
+        </div>
+        <div class="meta-cell">
+          <dt class="meta-key">Scope</dt>
+          <dd class="meta-val">V1 &rarr; V2 &rarr; V3</dd>
+        </div>
+        <div class="meta-cell">
+          <dt class="meta-key">Teams</dt>
+          <dd class="meta-val">Trading &middot; Asset &middot; Portfolio</dd>
+        </div>
+        <div class="meta-cell">
+          <dt class="meta-key">Platform</dt>
+          <dd class="meta-val">iOS &middot; Android</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Full-width image: Hero cover -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: V1 bare plan detail, V2 redesigned plan detail, V3 range DCA &mdash; side by side</div>
+    </div>
+    <p class="img-full-caption">V1 plan detail &middot; V2 redesigned plan detail &middot; V3 range DCA</p>
+  </div>
+
+  <!-- 01 Context -->
+  <section class="section" id="context">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">01</span>
+          <span>Context</span>
+        </span>
+        <h2 class="section-title">Crypto&rsquo;s timing problem</h2>
+      </header>
+      <div class="section-body">
+        <p>Most crypto users on OKX were used to active trading behavior: monitor price, wait, buy manually. Recurring buy asked them to hand part of that control to the system.</p>
+        <p>That changed the design problem completely.</p>
+        <p>Dollar-cost averaging already existed as a strategy. The challenge wasn&rsquo;t teaching users what DCA was. It was convincing them the system would behave predictably over time.</p>
+        <p>Early on, we treated recurring buy like a transaction flow. Users experienced it as a long-running system.</p>
+        <p>That difference shaped every version that followed.</p>
+
+        <div class="sidebar">
+          <div class="sidebar-title">Sidebar</div>
+          <ul>
+            <li>Goal: automate recurring crypto purchases inside OKX</li>
+            <li>Constraint: amount input and payment sections were technically fixed</li>
+            <li>Scope: three product iterations across setup, lifecycle management, and execution control</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 The Arc -->
+  <section class="section" id="arc">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">02</span>
+          <span>The Arc</span>
+        </span>
+        <h2 class="section-title">Three versions. Three different problems.</h2>
+        <p class="section-lede">We didn&rsquo;t plan to redesign recurring buy twice. The product kept exposing gaps in our assumptions.</p>
+      </header>
+      <div class="section-body">
+        <p>V1 launched quickly with core DCA functionality. Adoption was weak. The diagnosis showed the problem wasn&rsquo;t singular: setup friction, missing payment infrastructure, and weak lifecycle management were all contributing.</p>
+        <p>V2 addressed those operational gaps directly.</p>
+        <p>Then V3 shifted the product again. Product leadership initially proposed a competitor-inspired passive yield feature. User research pointed somewhere else: users wanted tighter execution control, not more passive behavior.</p>
+
+        <!-- V1 -->
+        <div class="version-card">
+          <div class="version-label">V1 &middot; Q1 2024</div>
+          <div class="version-title">Launch the core system</div>
+          <div class="version-body">
+            Recurring buy launched with:
+            <ul>
+              <li>fixed intervals</li>
+              <li>basic plan detail</li>
+              <li>order history</li>
+              <li>asset detail page entry point</li>
+            </ul>
+            <p style="margin-top:12px;">Recurring buy touched trading, asset, and portfolio surfaces, but no team fully owned the lifecycle experience. Shipping V1 required alignment across all three.</p>
+          </div>
+          <div class="version-results">
+            Results: <strong>~5% conversion</strong> &middot; <strong>~5% active plans</strong>
+          </div>
+          <div class="version-tags">
+            <span>Interval</span>
+            <span>Asset detail entry</span>
+            <span>Plan overview</span>
+            <span>Order history</span>
+          </div>
+        </div>
+
+        <!-- V2 -->
+        <div class="version-card">
+          <div class="version-label">V2 &middot; Q2 2024</div>
+          <div class="version-title">Fix the operational failures</div>
+          <div class="version-body">
+            The diagnosis after launch exposed three issues:
+            <ul>
+              <li>users hit friction before committing</li>
+              <li>preferred funding methods were missing</li>
+              <li>plans became difficult to manage once created</li>
+            </ul>
+            <p style="margin-top:12px;">V2 reduced setup friction, added ACH and stablecoin support, redesigned plan management, and introduced proactive intervention logic for payment failures and low balances.</p>
+          </div>
+          <div class="version-results">
+            Results: <strong>~99.6% ACH success rate</strong> &middot; <strong>~500% recurring buy volume growth</strong> &middot; <strong>~40% increase in active plans</strong>
+          </div>
+          <div class="version-tags">
+            <span>ACH</span>
+            <span>Editable plans</span>
+            <span>Performance tracking</span>
+            <span>Proactive alerts</span>
+            <span>Portfolio integration</span>
+          </div>
+        </div>
+
+        <!-- V3 -->
+        <div class="version-card">
+          <div class="version-label">V3 &middot; Q3 2024</div>
+          <div class="version-title">Rethink the strategy itself</div>
+          <div class="version-body">
+            The original V3 direction was based on competitor features around passive yield on idle cash. The research suggested users wanted something else.
+            <p style="margin-top:12px;">Instead of increasing passivity, we introduced price-range DCA:</p>
+            <ul>
+              <li>users define a buy range</li>
+              <li>orders execute only inside that range</li>
+              <li>execution history remains visible and traceable</li>
+            </ul>
+            <p style="margin-top:12px;">At launch, no major competitor offered this model.</p>
+          </div>
+          <div class="version-tags">
+            <span>Price-range DCA</span>
+            <span>Conditional execution</span>
+            <span>Execution history</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: V1/V2/V3 -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: V1 plan detail, V2 redesigned plan detail, V3 range DCA</div>
+    </div>
+  </div>
+
+  <!-- 03 Diagnosis -->
+  <section class="section" id="diagnosis">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">03</span>
+          <span>Diagnosis</span>
+        </span>
+        <h2 class="section-title">5% conversion forced a deeper look</h2>
+        <p class="section-lede">V1 had awareness. Users clicked recurring buy entry points regularly. The problem came after interest.</p>
+      </header>
+    </div>
+  </section>
+
+  <!-- Full-width image: ruling out wrong causes -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: &ldquo;Ruling out the wrong causes&rdquo; showing chip click data</div>
+    </div>
+  </div>
+
+  <section class="section" style="border-top: none; padding-top: 48px;">
+    <div class="wrap">
+      <div class="section-body">
+        <p>The diagnosis exposed three separate failures.</p>
+
+        <h3 class="sub-heading">01 &mdash; Setup friction arrived too early</h3>
+        <p>Users hit setup friction before they had enough confidence to commit to automation.</p>
+        <p>Recurring buy introduced:</p>
+        <ul class="bullets">
+          <li>frequency selection</li>
+          <li>funding decisions</li>
+          <li>execution timing</li>
+          <li>ongoing commitment</li>
+        </ul>
+        <p style="margin-top:16px;">Too much configuration appeared before users trusted the system.</p>
+        <p>The setup flow treated recurring buy like a separate product instead of an extension of an existing buy action.</p>
+
+        <h3 class="sub-heading">02 &mdash; Funding support didn&rsquo;t match real behavior</h3>
+        <p>Users preferred ACH and stablecoins for recurring purchases, but those methods were unavailable in V1.</p>
+        <p>This wasn&rsquo;t a UI issue. It was infrastructure mismatch.</p>
+        <p>Users already had established funding behavior on the platform. Recurring buy ignored it.</p>
+
+        <h3 class="sub-heading">03 &mdash; Users could create plans, but not really manage them</h3>
+        <p>The V1 plan page showed:</p>
+        <ul class="bullets">
+          <li>order history</li>
+          <li>pause</li>
+          <li>cancel</li>
+        </ul>
+        <p style="margin-top:16px;">That was essentially it.</p>
+        <p>Users couldn&rsquo;t:</p>
+        <ul class="bullets">
+          <li>edit plans cleanly</li>
+          <li>understand performance</li>
+          <li>recover from failed payments easily</li>
+          <li>understand plan health</li>
+        </ul>
+        <p style="margin-top:16px;">Once a plan was created, the product gave users very little visibility into whether the strategy was actually working.</p>
+        <p>I initially underestimated how much trust depends on lifecycle management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: Why V1 failed -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: &ldquo;Why V1 failed&rdquo; showing three problem areas</div>
+    </div>
+  </div>
+
+  <section class="section" style="border-top: none; padding-top: 48px;">
+    <div class="wrap">
+      <div class="section-body">
+        <div class="callout">
+          <div class="callout-kicker">Key insight</div>
+          <div class="callout-title">Friction, infrastructure, and trust looked similar in metrics, but they required completely different fixes.</div>
+          <p class="callout-body">That diagnosis became the real product work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Designing for Trust -->
+  <section class="section" id="trust">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">04</span>
+          <span>Designing for Trust</span>
+        </span>
+        <h2 class="section-title">Automation changes the relationship between user and product</h2>
+        <p class="section-lede">A failed market order frustrates users once. A failed automated system damages trust every time it repeats. That shifted the design priorities from transaction completion to long-term reliability and visibility.</p>
+      </header>
+    </div>
+  </section>
+
+  <!-- Full-width image: Design implications -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Design implications</div>
+    </div>
+  </div>
+
+  <!-- Decision 1 -->
+  <section class="section" style="border-top: none; padding-top: 48px;" id="decision-1">
+    <div class="wrap">
+      <div class="section-body">
+        <h3 class="sub-heading">Decision 1 &mdash; Frequency became part of the buy flow</h3>
+        <p>V1 treated recurring buy like a separate workflow.</p>
+        <p>V2 integrated recurring frequency directly into the existing buy experience through a lightweight selector:</p>
+        <ul class="bullets">
+          <li>one time</li>
+          <li>daily</li>
+          <li>weekly</li>
+          <li>biweekly</li>
+          <li>monthly</li>
+        </ul>
+        <p style="margin-top:16px;">Users were already trying to buy an asset. Frequency became another purchase parameter instead of a new product flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: Frequency selector -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Frequency selector</div>
+    </div>
+  </div>
+
+  <!-- Decision 2 -->
+  <section class="section" style="border-top: none; padding-top: 48px;" id="decision-2">
+    <div class="wrap">
+      <div class="section-body">
+        <h3 class="sub-heading">Decision 2 &mdash; Plan management became a core product surface</h3>
+        <p>We redesigned the plan detail page around ongoing visibility:</p>
+        <ul class="bullets">
+          <li>average entry price</li>
+          <li>current market price</li>
+          <li>total invested</li>
+          <li>cumulative returns</li>
+          <li>next execution date</li>
+        </ul>
+        <p style="margin-top:16px;">Users could also edit:</p>
+        <ul class="bullets">
+          <li>frequency</li>
+          <li>amount</li>
+          <li>payment method</li>
+          <li>execution timing</li>
+        </ul>
+        <p style="margin-top:16px;">without deleting plans or losing historical context.</p>
+        <p>That changed recurring buy from a static setup flow into an ongoing management system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: redesigned plan detail -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Redesigned plan detail</div>
+    </div>
+  </div>
+
+  <!-- Full-width image: inline editing -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Inline editing</div>
+    </div>
+  </div>
+
+  <!-- Decision 3 -->
+  <section class="section" style="border-top: none; padding-top: 48px;" id="decision-3">
+    <div class="wrap">
+      <div class="section-body">
+        <h3 class="sub-heading">Decision 3 &mdash; The system intervened before users lost trust</h3>
+        <p>V1 failed too quietly.</p>
+        <p>Plans could stop executing without users fully understanding:</p>
+        <ul class="bullets">
+          <li>why it happened</li>
+          <li>how long it had been failing</li>
+          <li>what action would recover it</li>
+        </ul>
+        <p style="margin-top:16px;">We added intervention logic:</p>
+        <ul class="bullets">
+          <li>automatic pause after repeated failures</li>
+          <li>low balance warnings</li>
+          <li>impacted order visibility before payment removal</li>
+          <li>direct recovery paths</li>
+        </ul>
+        <p style="margin-top:16px;">The goal wasn&rsquo;t just prevention. It was legibility.</p>
+        <p>Users needed to understand system behavior.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: paused plan warning -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Paused plan warning</div>
+    </div>
+  </div>
+
+  <!-- Full-width image: impacted orders modal -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Impacted orders modal</div>
+    </div>
+  </div>
+
+  <!-- Decision 4 -->
+  <section class="section" style="border-top: none; padding-top: 48px;" id="decision-4">
+    <div class="wrap">
+      <div class="section-body">
+        <h3 class="sub-heading">Decision 4 &mdash; Recurring buy became visible across the platform</h3>
+        <p>V1 hid recurring buy behind a single entry point.</p>
+        <p>V2 integrated plans into:</p>
+        <ul class="bullets">
+          <li>portfolio surfaces</li>
+          <li>activity feeds</li>
+          <li>transaction history</li>
+        </ul>
+        <p style="margin-top:16px;">Recurring orders appeared alongside manual trades instead of feeling isolated from the rest of the platform.</p>
+        <p>That visibility reinforced that recurring buy was part of normal investing behavior, not a niche automation feature.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: portfolio integration -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Portfolio integration</div>
+    </div>
+  </div>
+
+  <!-- Full-width image: activity feed integration -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Activity feed integration</div>
+    </div>
+  </div>
+
+  <!-- 05 The Pivot -->
+  <section class="section" id="pivot">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">05</span>
+          <span>The Pivot</span>
+        </span>
+        <h2 class="section-title">The research changed the roadmap</h2>
+        <p class="section-lede">After V2 improved adoption and volume, the next proposal focused on passive yield between purchases, similar to competitor products.</p>
+      </header>
+      <div class="section-body">
+        <p>The assumption was straightforward: users wanted passive returns while waiting for recurring execution.</p>
+        <p>The research suggested something else.</p>
+        <p>Instead of debating assumptions in review meetings, I ran a survey with active recurring buy users.</p>
+
+        <h3 class="sub-heading">Survey findings</h3>
+        <div class="callout">
+          <div class="callout-kicker">Survey Data</div>
+          <div class="callout-body">
+            <p>[YOUR DATA: insert actual percentages and sample size]</p>
+            <ul style="list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:6px;">
+              <li style="padding-left:16px; position:relative; font-size:14px;"><span style="position:absolute; left:0;">&#x2022;</span> Passive yield was not a top priority</li>
+              <li style="padding-left:16px; position:relative; font-size:14px;"><span style="position:absolute; left:0;">&#x2022;</span> Many users already understood DCA strategy intentionally</li>
+              <li style="padding-left:16px; position:relative; font-size:14px;"><span style="position:absolute; left:0;">&#x2022;</span> The strongest request was tighter execution control</li>
+              <li style="padding-left:16px; position:relative; font-size:14px;"><span style="position:absolute; left:0;">&#x2022;</span> Users wanted more predictability around execution conditions</li>
+            </ul>
+            <p style="margin-top:12px; font-family:var(--mono); font-size:11px; color:var(--fg-4);">N=[sample size], [month/year]</p>
+          </div>
+        </div>
+
+        <h3 class="sub-heading">What changed</h3>
+        <p>The research showed users already had investing intent and strategy.</p>
+        <p>What they wanted was better execution infrastructure.</p>
+        <p>That shifted V3 away from passive yield and toward conditional execution.</p>
+
+        <h3 class="sub-heading">What shipped instead</h3>
+        <p>Price-range DCA:</p>
+        <ul class="bullets">
+          <li>users define a buy range</li>
+          <li>recurring orders execute only within that band</li>
+          <li>execution history remains visible afterward</li>
+        </ul>
+        <p style="margin-top:16px;">The interaction stayed simple, but the strategy became more flexible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-width image: range setup -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Range setup</div>
+    </div>
+  </div>
+
+  <!-- Full-width image: execution history -->
+  <div class="img-full">
+    <div class="img-full-inner">
+      <div class="placeholder">SCREEN: Execution history</div>
+    </div>
+  </div>
+
+  <!-- 06 What Simplicity Actually Meant -->
+  <section class="section" id="simplicity">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">06</span>
+          <span>What Simplicity Actually Meant</span>
+        </span>
+        <h2 class="section-title">Simple doesn&rsquo;t mean entry-level</h2>
+      </header>
+      <div class="section-body">
+        <p>Crypto products often equate sophistication with density:</p>
+        <ul class="bullets">
+          <li>more indicators</li>
+          <li>more controls</li>
+          <li>more settings</li>
+          <li>more charts</li>
+        </ul>
+        <p style="margin-top:16px;">Our users didn&rsquo;t need help understanding strategy.</p>
+        <p>Many were already using DCA intentionally before recurring buy existed. What they lacked was a reliable way to execute that strategy over time.</p>
+        <p>That changed how we approached simplicity.</p>
+        <p>We removed unnecessary interface complexity while increasing system capability underneath:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Version</th>
+              <th>Capability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>V1</td>
+              <td>Interval automation</td>
+            </tr>
+            <tr>
+              <td>V2</td>
+              <td>Lifecycle visibility and control</td>
+            </tr>
+            <tr>
+              <td>V3</td>
+              <td>Conditional execution through price ranges</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:24px;">The product became more capable each release without becoming harder to understand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Where This Could Go Next -->
+  <section class="section" id="whats-next">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">07</span>
+          <span>Where This Could Go Next</span>
+        </span>
+        <h2 class="section-title">Composable execution logic</h2>
+      </header>
+      <div class="section-body">
+        <p>V3 showed users wanted more conditional control, not necessarily more automation.</p>
+        <p>The next step is likely composable execution logic:</p>
+        <ul class="bullets">
+          <li>recurring buy inside price bands</li>
+          <li>portfolio allocation thresholds</li>
+          <li>market condition triggers</li>
+          <li>multiple execution conditions combined together</li>
+        </ul>
+        <p style="margin-top:16px;">The challenge is keeping those systems understandable.</p>
+        <p>One condition is easy to reason about. Five conditions can become opaque very quickly.</p>
+        <p>That&rsquo;s the next design problem I started discussing with PM after V3 shipped.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Outcome & Reflection -->
+  <section class="section" id="outcome">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-eyebrow">
+          <span class="num">08</span>
+          <span>Outcome &amp; Reflection</span>
+        </span>
+        <h2 class="section-title">Results</h2>
+      </header>
+
+      <div class="metrics" role="list">
+        <div class="metric" role="listitem">
+          <div class="metric-key">ACH order success rate</div>
+          <div class="metric-val">~99.6<span class="unit">%</span></div>
+        </div>
+        <div class="metric" role="listitem">
+          <div class="metric-key">Recurring buy volume growth</div>
+          <div class="metric-val">~500<span class="unit">%</span></div>
+        </div>
+        <div class="metric" role="listitem">
+          <div class="metric-key">Increase in active plans</div>
+          <div class="metric-val">~40<span class="unit">%</span></div>
+        </div>
+      </div>
+
+      <div class="section-body" style="margin-top:64px;">
+        <h3 class="sub-heading">Reflection</h3>
+
+        <h4 style="font-size:16px; font-weight:510; color:var(--fg-1); margin-top:32px; margin-bottom:8px;">I under-scoped lifecycle management in V1</h4>
+        <p>We focused heavily on setup and underestimated how much trust depended on recovery states:</p>
+        <ul class="bullets">
+          <li>failed payments</li>
+          <li>removed funding methods</li>
+          <li>paused plans</li>
+          <li>editability</li>
+          <li>execution visibility</li>
+        </ul>
+        <p style="margin-top:16px;">Silent failures damaged trust faster than setup friction did.</p>
+
+        <h4 style="font-size:16px; font-weight:510; color:var(--fg-1); margin-top:32px; margin-bottom:8px;">I mistook minimalism for transparency</h4>
+        <p>The V1 plan page felt intentionally lightweight during design reviews.</p>
+        <p>Users experienced it differently.</p>
+        <p>Without performance visibility or meaningful controls, the product felt incomplete once plans were active.</p>
+
+        <h4 style="font-size:16px; font-weight:510; color:var(--fg-1); margin-top:32px; margin-bottom:8px;">The diagnosis mattered more than the redesign</h4>
+        <p>Low adoption initially looked like a UX simplification problem.</p>
+        <p>It wasn&rsquo;t.</p>
+        <p>The product had:</p>
+        <ul class="bullets">
+          <li>funnel friction</li>
+          <li>infrastructure mismatch</li>
+          <li>weak lifecycle trust</li>
+        </ul>
+        <p style="margin-top:16px;">Each required a different response.</p>
+        <p>Separating those problems correctly ended up being more important than any single screen redesign.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next project -->
+  <section class="next">
+    <div class="wrap">
+      <a class="next-inner" href="/homepage-test/" aria-label="Back to all work">
+        <div>
+          <div class="next-kicker">Next case study</div>
+          <div class="next-title">View all work &rarr;</div>
+        </div>
+        <span class="next-arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap footer-inner">
+    <div class="footer-left">
+      <span class="footer-logo">AT</span>
+      <span>&copy; 2026 Aaron Tang</span>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:aarontang.design@gmail.com">aarontang.design@gmail.com</a>
+      <a href="#" class="icon-link" aria-label="LinkedIn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V21h-4v-5.3c0-1.27-.03-2.9-1.77-2.9-1.77 0-2.05 1.38-2.05 2.8V21H10V9z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // Scroll progress indicator
+    var bar = document.querySelector('.scroll-progress');
+    if (bar) {
+      var ticking = false;
+      function update() {
+        var scrolled = window.scrollY;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = max > 0 ? Math.min(100, Math.max(0, (scrolled / max) * 100)) : 0;
+        bar.style.setProperty('--p', pct + '%');
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    }
+
+    // Smooth scroll for in-page anchors
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (!id || id === '#' || id.length < 2) return;
+        var el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', id);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
