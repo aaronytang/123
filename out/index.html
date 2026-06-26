@@ -1,0 +1,446 @@
+<!DOCTYPE html><html lang="en" class="h-full antialiased"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/_next/static/chunks/00unruea3w~bq.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/0dtp0aohia35w.js"/><script src="/_next/static/chunks/15p92al0vxzdk.js" async=""></script><script src="/_next/static/chunks/021q8h94-dn62.js" async=""></script><script src="/_next/static/chunks/0mxh-ubp1ht~o.js" async=""></script><script src="/_next/static/chunks/turbopack-0n19~lcz0k607.js" async=""></script><script src="/_next/static/chunks/01xlw8hd842-c.js" async=""></script><script src="/_next/static/chunks/0d3shmwh5_nmn.js" async=""></script><script src="/_next/static/chunks/0gv0xfea3rrfl.js" async=""></script><script src="/_next/static/chunks/0ka051yepewro.js" async=""></script><script src="/_next/static/chunks/0vcpc_y6h5~8t.js" async=""></script><title>Aaron Tang — Product Designer</title><meta name="description" content="Product designer specializing in payments, crypto, and regulated products. OKX, PlayStation, Walmart, Next Trucking."/><link rel="icon" href="/favicon.ico?favicon.0x3dzn~oxb6tn.ico" sizes="256x256" type="image/x-icon"/><script src="/_next/static/chunks/03~yq9q893hmn.js" noModule=""></script></head><body class="min-h-full flex flex-col"><div hidden=""><!--$--><!--/$--></div><div class="portfolio-home-page light min-h-screen bg-background text-fg-primary"><header class="sticky top-0 z-50 border-b border-border bg-background/90 text-[13px] font-medium backdrop-blur-md"><div class="mx-auto flex max-w-[1120px] items-baseline justify-between gap-6 px-6 py-[18px]"><a aria-label="Aaron Tang — home" class="text-fg-primary transition-colors hover:text-fg-primary" href="/">Aaron Tang</a><span class="hidden text-fg-tertiary md:block">Product Designer — Payments &amp; Crypto</span><nav aria-label="Primary" class="flex items-center gap-6 text-fg-tertiary"><a class="text-fg-primary transition-colors hover:text-fg-primary" href="/#work">Work</a><a class="transition-colors hover:text-fg-primary" href="/#about">About</a><a href="mailto:aarontang.design@gmail.com" class="transition-colors hover:text-fg-primary">Email</a></nav></div></header><style>/* ============================================================
+   Aaron Tang — Portfolio v3 "Index"
+   Monochrome. One typeface. Hairlines. No cards, no radius.
+   References: TypeList / Iconwerk / Custo / Duties / Zumbrunnen
+   ============================================================ */
+
+:root {
+  --black: #111;
+  --grey: #6b6b6b;
+  --light: #b3b3b3;
+  --line: #e0e0e0;
+  --white: #fff;
+  --amber-bg: #fff6df;
+  --amber-bd: #dcaa32;
+  --amber-tx: #7a5900;
+  --font: var(--font-geist), "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --pad: clamp(20px, 4vw, 56px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--black); color: var(--white); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; }
+
+p { color: var(--grey); }
+p strong { color: var(--black); font-weight: 600; }
+
+.label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--light);
+}
+
+/* underline link */
+.ul { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: var(--light); transition: text-decoration-color .25s; }
+.ul:hover { text-decoration-color: var(--black); }
+
+/* ---------- reveal ---------- */
+.rv { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- header bar ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 60;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 18px var(--pad);
+  background: rgba(255,255,255,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px; font-weight: 500;
+}
+.bar .mid { color: var(--grey); display: none; }
+@media (min-width: 760px) { .bar .mid { display: block; } }
+.bar .links { display: flex; gap: 24px; }
+.bar .links a { color: var(--grey); transition: color .2s; }
+.bar .links a:hover, .bar .links a.on { color: var(--black); }
+
+/* ---------- home intro ---------- */
+.intro { padding: clamp(48px, 9vh, 110px) var(--pad) clamp(40px, 7vh, 80px); }
+.intro h1 {
+  font-size: clamp(22px, 2.6vw, 34px); font-weight: 500; max-width: 760px; line-height: 1.3;
+}
+.intro h1 .dim { color: var(--light); }
+.intro .sub { margin-top: 16px; font-size: 15px; color: var(--grey); max-width: 560px; }
+
+/* ---------- project index (flat images) ---------- */
+.index {
+  margin: 0 var(--pad);
+  border-top: 1px solid var(--black);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+.index-label { padding: 12px 0 0; }
+
+.entry { display: block; }
+.entry-featured {
+  grid-column: 1 / -1;
+  border-bottom: none;
+  padding: 0;
+}
+.entry-featured:nth-of-type(1) { grid-column: 1 / span 7; }
+.entry-featured:nth-of-type(2) { grid-column: 8 / -1; }
+.entry .shot {
+  background: #f6f6f5;
+  aspect-ratio: 16 / 8.5; overflow: hidden;
+  display: flex; align-items: stretch; justify-content: stretch; padding: 0;
+  border-radius: 12px;
+}
+.entry .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.6,.2,1); }
+.entry:hover .shot img { transform: scale(1.015); }
+.entry .meta {
+  display: grid; grid-template-columns: 64px 1fr 320px 90px; gap: 24px; align-items: baseline;
+  padding-top: 20px;
+}
+.entry .meta.meta-no-number {
+  grid-template-columns: 1fr 320px 90px;
+}
+.entry .no { font-size: 13px; color: var(--light); font-variant-numeric: tabular-nums; }
+.entry .name { font-size: clamp(22px, 2.8vw, 36px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; }
+.entry .name .tag { font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--light); margin-left: 14px; white-space: nowrap; }
+.entry .fact { font-size: 13.5px; color: var(--grey); line-height: 1.45; }
+.entry .ar { text-align: right; font-size: 18px; color: var(--light); transition: color .3s, transform .3s; }
+.entry:hover .ar { color: var(--black); }
+
+.entry-featured .shot {
+  position: relative;
+  padding: 0;
+  min-height: clamp(440px, 52vw, 700px);
+}
+.entry-featured .shot-copy {
+  position: absolute;
+  inset: clamp(18px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 18px;
+  z-index: 2;
+  pointer-events: none;
+}
+.entry-featured .shot-top {
+  display: grid;
+  grid-template-columns: 1fr 32px;
+  align-items: start;
+  gap: 14px;
+  max-width: min(44%, 360px);
+}
+.entry-featured .shot-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.entry-featured .shot-tag { color: var(--grey); }
+.entry-featured .shot-ar {
+  justify-self: end;
+  font-size: 18px;
+  color: var(--light);
+  transition: color .3s, transform .3s;
+}
+.entry-featured .shot-bottom {
+  max-width: min(44%, 360px);
+}
+.entry-featured .shot-name {
+  display: block;
+  font-size: clamp(28px, 4.2vw, 50px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+  color: var(--black);
+}
+.entry-featured .shot-fact {
+  display: block;
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--grey);
+}
+.entry-featured:hover .shot-ar {
+  color: var(--black);
+  transform: translateX(4px);
+}
+
+/* smaller grid for selected work */
+.mini-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mini { display: block; }
+.mini .shot {
+  background: #f6f6f5;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  display: flex; align-items: stretch; justify-content: stretch; padding: 0;
+  border-radius: 12px;
+}
+.mini .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.6,.2,1); }
+.mini:hover .shot img { transform: scale(1.02); }
+.mini .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 14px; }
+.mini .name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.mini .fact { font-size: 12.5px; color: var(--grey); margin-top: 2px; }
+.mini .no { font-size: 12px; color: var(--light); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 860px) {
+  .index { grid-template-columns: 1fr; }
+  .entry .meta { grid-template-columns: 36px 1fr; }
+  .entry .meta.meta-no-number { grid-template-columns: 1fr; }
+  .entry .fact { grid-column: 2; }
+  .entry .meta.meta-no-number .fact { grid-column: 1; }
+  .entry .ar { display: none; }
+  .entry-featured:nth-of-type(1),
+  .entry-featured:nth-of-type(2) {
+    grid-column: 1;
+  }
+  .entry-featured .shot {
+    min-height: 360px;
+  }
+  .entry-featured .shot-top {
+    grid-template-columns: 1fr;
+    max-width: min(72%, 300px);
+  }
+  .entry-featured .shot-ar {
+    display: none;
+  }
+  .entry-featured .shot-bottom {
+    max-width: min(72%, 300px);
+  }
+  .mini-grid { grid-column: 1; }
+  .mini-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  .entry-featured .shot {
+    min-height: 300px;
+  }
+  .entry-featured .shot-copy {
+    inset: 18px;
+    gap: 14px;
+  }
+  .entry-featured .shot-top {
+    gap: 10px;
+  }
+  .entry-featured .shot-tag {
+    max-width: 18ch;
+    line-height: 1.45;
+  }
+  .entry-featured .shot-bottom {
+    max-width: 78%;
+  }
+  .entry-featured .shot-top {
+    max-width: 78%;
+  }
+  .entry-featured .shot-name {
+    font-size: clamp(22px, 9vw, 34px);
+  }
+  .entry-featured .shot-fact {
+    font-size: 12.5px;
+  }
+}
+
+/* ---------- home footer note / capabilities ---------- */
+.caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: clamp(48px, 8vh, 96px) var(--pad); }
+.caps .c .label { display: block; margin-bottom: 12px; }
+.caps .c p { font-size: 14.5px; }
+@media (max-width: 760px) { .caps { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--black); padding: clamp(40px, 7vh, 80px) var(--pad) 32px; }
+footer .label { display: block; margin-bottom: 18px; }
+footer .mail { font-size: clamp(22px, 3.4vw, 40px); font-weight: 500; letter-spacing: -0.02em; }
+footer .base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: clamp(36px, 6vh, 64px); font-size: 12px; color: var(--light); }
+footer .base a { color: var(--grey); }
+footer .base a:hover { color: var(--black); }
+
+/* ============================================================
+   CASE PAGES
+   ============================================================ */
+.case-top { padding: clamp(44px, 8vh, 96px) var(--pad) 0; }
+.case-top .label { display: block; margin-bottom: 20px; }
+.case-top h1 { font-size: clamp(28px, 4vw, 56px); max-width: 920px; letter-spacing: -0.025em; }
+.case-top .lede { margin-top: 22px; font-size: clamp(16px, 1.6vw, 18px); max-width: 640px; }
+
+/* spec sheet */
+.spec { margin: clamp(36px, 6vh, 64px) var(--pad) 0; border-top: 1px solid var(--black); }
+.spec .srow { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.spec .srow .k { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--light); padding-top: 3px; }
+@media (max-width: 600px) { .spec .srow { grid-template-columns: 110px 1fr; } }
+
+/* outcomes strip — monochrome, hairlines */
+.outcomes { margin: clamp(48px, 8vh, 90px) var(--pad) 0; }
+.outcomes .label { display: block; margin-bottom: 0; padding-bottom: 12px; }
+.out-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--black); }
+.out { padding: 28px 24px 32px 0; border-bottom: 1px solid var(--line); }
+.out + .out { padding-left: 32px; border-left: 1px solid var(--line); }
+.out .n { font-size: clamp(40px, 5vw, 68px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.out .l { font-size: 13px; color: var(--grey); margin-top: 12px; max-width: 240px; line-height: 1.5; }
+@media (max-width: 760px) {
+  .out-grid { grid-template-columns: 1fr; }
+  .out + .out { padding-left: 0; border-left: none; }
+}
+
+/* sections */
+.sec { padding: clamp(56px, 9vh, 110px) var(--pad) 0; }
+.sec .col { max-width: 680px; }
+.sec .label { display: block; margin-bottom: 16px; }
+.sec h2 { font-size: clamp(22px, 2.6vw, 32px); margin-bottom: 18px; max-width: 680px; }
+.sec p { max-width: 680px; }
+.sec p + p { margin-top: 14px; }
+
+/* images: full-bleed, no frames */
+.img-full { margin-top: clamp(32px, 5vh, 56px); }
+.img-full img { width: 100%; border: 1px solid var(--line); }
+.img-full.bare img { border: none; }
+.img-cap { font-size: 12px; color: var(--light); letter-spacing: .04em; text-transform: uppercase; margin-top: 10px; }
+.img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(32px, 5vh, 56px); }
+.img-pair img { width: 100%; border: 1px solid var(--line); }
+@media (max-width: 700px) { .img-pair { grid-template-columns: 1fr; } }
+
+/* numbered decisions — hairline list */
+.dlist { border-top: 1px solid var(--black); margin-top: 36px; max-width: 820px; }
+.d {
+  display: grid; grid-template-columns: 64px 1fr; gap: 24px;
+  padding: 28px 0; border-bottom: 1px solid var(--line);
+}
+.d .dn { font-size: 13px; color: var(--light); font-variant-numeric: tabular-nums; padding-top: 4px; }
+.d h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+.d p { font-size: 15px; }
+@media (max-width: 600px) { .d { grid-template-columns: 36px 1fr; } }
+
+/* placeholders */
+.ph { background: var(--amber-bg); border-bottom: 1px dashed var(--amber-bd); padding: 0 4px; font-weight: 600; color: var(--amber-tx); }
+.ph-note {
+  border: 1px dashed var(--amber-bd); background: var(--amber-bg); color: var(--amber-tx);
+  font-size: 13px; line-height: 1.55; padding: 14px 16px; margin-top: 24px; max-width: 680px;
+}
+
+/* next case */
+.next { margin-top: clamp(64px, 10vh, 120px); border-top: 1px solid var(--black); }
+.next a {
+  display: grid; grid-template-columns: 64px 1fr 90px; gap: 24px; align-items: baseline;
+  padding: 32px var(--pad); transition: padding-left .35s cubic-bezier(.2,.6,.2,1);
+}
+.next a:hover { padding-left: calc(var(--pad) + 16px); }
+.next .no { font-size: 13px; color: var(--light); }
+.next .name { font-size: clamp(24px, 3.2vw, 42px); font-weight: 500; letter-spacing: -0.025em; }
+.next .ar { text-align: right; font-size: 20px; }
+
+/* ---------- about ---------- */
+.about { padding: clamp(48px, 9vh, 110px) var(--pad) 0; }
+.about h1 { font-size: clamp(24px, 3vw, 40px); max-width: 820px; line-height: 1.25; }
+.about h1 .dim { color: var(--light); }
+.about-body { display: grid; grid-template-columns: 260px 1fr; gap: clamp(32px, 5vw, 80px); padding: clamp(40px, 7vh, 72px) var(--pad); align-items: start; }
+.about-body img { width: 100%; filter: grayscale(1); border: 1px solid var(--line); }
+.about-body .bio { max-width: 640px; }
+.about-body .bio p + p { margin-top: 14px; }
+@media (max-width: 760px) { .about-body { grid-template-columns: 1fr; } .about-body img { max-width: 240px; } }
+
+.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page>header.sticky>div.mx-auto{padding:18px 24px}
+.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page>header.sticky>div.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}
+.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page>header.sticky>div.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}</style><style>.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page>header.sticky>div.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}</style><div class="portfolio-home"><header class="intro">
+  <h1 class="rv">Payments, trading, and checkout for OKX, PlayStation, Walmart and Next — <span class="dim">designing the screens where trust decides conversion.</span></h1>
+  <p class="sub rv">Eight years in regulated products. Strategy through post-launch iteration.</p>
+</header>
+
+<main>
+  <section class="index rv">
+
+    <a class="entry entry-featured" href="/project/okx">
+      <div class="shot">
+        <img src="/images/okx-recurring-buy-home.png" alt="OKX Pay mobile screens">
+        <div class="shot-copy">
+          <div class="shot-top">
+            <span class="shot-tag">Crypto payments · 2023—</span>
+            <span class="shot-ar">→</span>
+          </div>
+          <div class="shot-bottom">
+            <span class="shot-name">OKX Pay</span>
+            <span class="shot-fact">Self-custody payments as simple as texting — <span class="ph">[X%]</span> completion lift</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a class="entry entry-featured" href="/project/playstation">
+      <div class="shot">
+        <img src="/images/playstation-home-cover.png" alt="PlayStation checkout experience">
+        <div class="shot-copy">
+          <div class="shot-top">
+            <span class="shot-tag">Global checkout · 300M+ players</span>
+            <span class="shot-ar">→</span>
+          </div>
+          <div class="shot-bottom">
+            <span class="shot-name">PlayStation</span>
+            <span class="shot-fact">Installments for Brazil — market sales doubled</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <div class="mini-grid">
+      <a class="mini" href="/homepage-test/next-trucking/">
+        <div class="shot"><img src="/images/next-trucking-home-cover.svg" alt="Next Trucking dispatching system"></div>
+        <div class="meta">
+          <span>
+            <span class="name">Next Trucking</span>
+            <div class="fact">$5 loss cut per container · 25% throughput lift</div>
+          </span>
+          <span class="no">03</span>
+        </div>
+      </a>
+      <a class="mini" href="/homepage-test/walmart/">
+        <div class="shot"><img src="/images/walmart-gs-home-cover.svg" alt="Walmart Global Sourcing platform"></div>
+        <div class="meta">
+          <span>
+            <span class="name">Walmart GS</span>
+            <div class="fact">3 products across 6 international markets</div>
+          </span>
+          <span class="no">04</span>
+        </div>
+      </a>
+      <a class="mini" href="https://atangdesign.com/project/rumble">
+        <div class="shot"><img src="/images/rumble-home-cover.png" alt="Rumble app and IoT device"></div>
+        <div class="meta">
+          <span>
+            <span class="name">Rumble</span>
+            <div class="fact">Mobile app + IoT device</div>
+          </span>
+          <span class="no">05</span>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
+  <section class="caps">
+    <div class="c rv">
+      <span class="label">Domain</span>
+      <p>Payments, crypto, and commerce in regulated markets — flows where compliance, fraud, and irreversibility constrain every screen.</p>
+    </div>
+    <div class="c rv">
+      <span class="label">Approach</span>
+      <p>Absorb complexity into the system, not the user. Fewer destinations, less UI, decisions framed in business terms.</p>
+    </div>
+    <div class="c rv">
+      <span class="label">Background</span>
+      <p>Trained in architecture. "Less is more" carried over — <a class="ul" href="https://atangdesign.com/architecture">see architectural work</a>.</p>
+    </div>
+  </section>
+</main>
+
+</div></div></div></div><footer class="border-t border-border py-10" role="contentinfo"><div class="mx-auto flex max-w-[1024px] flex-wrap items-center justify-between gap-6 px-6 text-[13px] text-fg-quaternary"><div class="inline-flex items-center gap-3.5"><span class="font-mono font-medium tracking-wide text-fg-secondary">AT</span><span>©<!-- --> <!-- -->2026<!-- --> Aaron Tang</span></div><div class="inline-flex items-center gap-4"><a href="mailto:aarontang.design@gmail.com" class="text-fg-tertiary transition-colors hover:text-fg-primary">aarontang.design@gmail.com</a><a href="https://www.linkedin.com/in/aaron-tang" aria-label="LinkedIn" class="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-fg-tertiary transition-colors hover:border-[#2e3138] hover:text-fg-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V21h-4v-5.3c0-1.27-.03-2.9-1.77-2.9-1.77 0-2.05 1.38-2.05 2.8V21H10V9z"></path></svg></a></div></div></footer></div><!--$--><!--/$--><script src="/_next/static/chunks/0dtp0aohia35w.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[39756,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n3:I[58298,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\",\"/_next/static/chunks/0gv0xfea3rrfl.js\"],\"default\"]\n4:I[37457,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"default\"]\n5:I[22016,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\",\"/_next/static/chunks/0ka051yepewro.js\"],\"\"]\nd:I[63491,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\",\"/_next/static/chunks/0vcpc_y6h5~8t.js\"],\"default\"]\n:HL[\"/_next/static/chunks/00unruea3w~bq.css\",\"style\"]\n6:T3abf,"])</script><script>self.__next_f.push([1,"/* ============================================================\n   Aaron Tang — Portfolio v3 \"Index\"\n   Monochrome. One typeface. Hairlines. No cards, no radius.\n   References: TypeList / Iconwerk / Custo / Duties / Zumbrunnen\n   ============================================================ */\n\n:root {\n  --black: #111;\n  --grey: #6b6b6b;\n  --light: #b3b3b3;\n  --line: #e0e0e0;\n  --white: #fff;\n  --amber-bg: #fff6df;\n  --amber-bd: #dcaa32;\n  --amber-tx: #7a5900;\n  --font: var(--font-geist), \"Geist\", -apple-system, BlinkMacSystemFont, \"Helvetica Neue\", sans-serif;\n  --pad: clamp(20px, 4vw, 56px);\n}\n\n* { margin: 0; padding: 0; box-sizing: border-box; }\nhtml { scroll-behavior: smooth; }\n\nbody {\n  font-family: var(--font);\n  font-size: 16px;\n  line-height: 1.6;\n  color: var(--black);\n  background: var(--white);\n  -webkit-font-smoothing: antialiased;\n}\n\n::selection { background: var(--black); color: var(--white); }\na { color: inherit; text-decoration: none; }\nimg { max-width: 100%; height: auto; display: block; }\n\nh1, h2, h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.12; }\n\np { color: var(--grey); }\np strong { color: var(--black); font-weight: 600; }\n\n.label {\n  font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;\n  color: var(--light);\n}\n\n/* underline link */\n.ul { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: var(--light); transition: text-decoration-color .25s; }\n.ul:hover { text-decoration-color: var(--black); }\n\n/* ---------- reveal ---------- */\n.rv { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }\n.rv.in { opacity: 1; transform: none; }\n@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }\n\n/* ---------- header bar ---------- */\n.bar {\n  position: sticky; top: 0; z-index: 60;\n  display: flex; justify-content: space-between; align-items: baseline;\n  padding: 18px var(--pad);\n  background: rgba(255,255,255,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n  border-bottom: 1px solid var(--line);\n  font-size: 13px; font-weight: 500;\n}\n.bar .mid { color: var(--grey); display: none; }\n@media (min-width: 760px) { .bar .mid { display: block; } }\n.bar .links { display: flex; gap: 24px; }\n.bar .links a { color: var(--grey); transition: color .2s; }\n.bar .links a:hover, .bar .links a.on { color: var(--black); }\n\n/* ---------- home intro ---------- */\n.intro { padding: clamp(48px, 9vh, 110px) var(--pad) clamp(40px, 7vh, 80px); }\n.intro h1 {\n  font-size: clamp(22px, 2.6vw, 34px); font-weight: 500; max-width: 760px; line-height: 1.3;\n}\n.intro h1 .dim { color: var(--light); }\n.intro .sub { margin-top: 16px; font-size: 15px; color: var(--grey); max-width: 560px; }\n\n/* ---------- project index (flat images) ---------- */\n.index { margin: 0 var(--pad); border-top: 1px solid var(--black); }\n.index-label { padding: 12px 0 0; }\n\n.entry { display: block; padding: clamp(32px, 5vh, 56px) 0; border-bottom: 1px solid var(--line); }\n.entry-featured { border-bottom: none; }\n.entry-featured + .entry-featured {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n.entry .shot {\n  background: #f6f6f5;\n  aspect-ratio: 16 / 8.5; overflow: hidden;\n  display: flex; align-items: center; justify-content: center; padding: 4% 6%;\n}\n.entry .shot img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s cubic-bezier(.2,.6,.2,1); }\n.entry:hover .shot img { transform: scale(1.015); }\n.entry .meta {\n  display: grid; grid-template-columns: 64px 1fr 320px 90px; gap: 24px; align-items: baseline;\n  padding-top: 20px;\n}\n.entry .meta.meta-no-number {\n  grid-template-columns: 1fr 320px 90px;\n}\n.entry .no { font-size: 13px; color: var(--light); font-variant-numeric: tabular-nums; }\n.entry .name { font-size: clamp(22px, 2.8vw, 36px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; }\n.entry .name .tag { font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--light); margin-left: 14px; white-space: nowrap; }\n.entry .fact { font-size: 13.5px; color: var(--grey); line-height: 1.45; }\n.entry .ar { text-align: right; font-size: 18px; color: var(--light); transition: color .3s, transform .3s; }\n.entry:hover .ar { color: var(--black); }\n\n.entry-featured .shot {\n  position: relative;\n  padding: 4% 6%;\n  min-height: clamp(440px, 52vw, 700px);\n}\n.entry-featured .shot-copy {\n  position: absolute;\n  inset: clamp(18px, 3vw, 32px);\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end;\n  gap: 18px;\n  z-index: 2;\n  pointer-events: none;\n}\n.entry-featured .shot-top {\n  display: grid;\n  grid-template-columns: 1fr 32px;\n  align-items: start;\n  gap: 14px;\n  max-width: min(44%, 360px);\n}\n.entry-featured .shot-tag {\n  font-size: 11px;\n  font-weight: 500;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n}\n.entry-featured .shot-tag { color: var(--grey); }\n.entry-featured .shot-ar {\n  justify-self: end;\n  font-size: 18px;\n  color: var(--light);\n  transition: color .3s, transform .3s;\n}\n.entry-featured .shot-bottom {\n  max-width: min(44%, 360px);\n}\n.entry-featured .shot-name {\n  display: block;\n  font-size: clamp(28px, 4.2vw, 50px);\n  font-weight: 500;\n  letter-spacing: -0.03em;\n  line-height: 0.96;\n  color: var(--black);\n}\n.entry-featured .shot-fact {\n  display: block;\n  margin-top: 14px;\n  font-size: 13.5px;\n  line-height: 1.5;\n  color: var(--grey);\n}\n.entry-featured:hover .shot-ar {\n  color: var(--black);\n  transform: translateX(4px);\n}\n\n/* smaller grid for selected work */\n.mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); }\n.mini { display: block; }\n.mini .shot {\n  background: #f6f6f5;\n  aspect-ratio: 4 / 3; overflow: hidden;\n  display: flex; align-items: center; justify-content: center; padding: 8%;\n}\n.mini .shot img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s cubic-bezier(.2,.6,.2,1); }\n.mini:hover .shot img { transform: scale(1.02); }\n.mini .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 14px; }\n.mini .name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }\n.mini .fact { font-size: 12.5px; color: var(--grey); margin-top: 2px; }\n.mini .no { font-size: 12px; color: var(--light); font-variant-numeric: tabular-nums; }\n\n@media (max-width: 860px) {\n  .entry .meta { grid-template-columns: 36px 1fr; }\n  .entry .meta.meta-no-number { grid-template-columns: 1fr; }\n  .entry .fact { grid-column: 2; }\n  .entry .meta.meta-no-number .fact { grid-column: 1; }\n  .entry .ar { display: none; }\n  .entry-featured .shot {\n    min-height: 360px;\n    padding: 6% 7%;\n  }\n  .entry-featured .shot-top {\n    grid-template-columns: 1fr;\n    max-width: min(72%, 300px);\n  }\n  .entry-featured .shot-ar {\n    display: none;\n  }\n  .entry-featured .shot-bottom {\n    max-width: min(72%, 300px);\n  }\n  .mini-grid { grid-template-columns: 1fr; gap: 40px; }\n}\n\n@media (max-width: 640px) {\n  .entry-featured .shot {\n    min-height: 300px;\n    padding: 8% 8%;\n  }\n  .entry-featured .shot-copy {\n    inset: 18px;\n    gap: 14px;\n  }\n  .entry-featured .shot-top {\n    gap: 10px;\n  }\n  .entry-featured .shot-tag {\n    max-width: 18ch;\n    line-height: 1.45;\n  }\n  .entry-featured .shot-bottom {\n    max-width: 78%;\n  }\n  .entry-featured .shot-top {\n    max-width: 78%;\n  }\n  .entry-featured .shot-name {\n    font-size: clamp(22px, 9vw, 34px);\n  }\n  .entry-featured .shot-fact {\n    font-size: 12.5px;\n  }\n}\n\n/* ---------- home footer note / capabilities ---------- */\n.caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: clamp(48px, 8vh, 96px) var(--pad); }\n.caps .c .label { display: block; margin-bottom: 12px; }\n.caps .c p { font-size: 14.5px; }\n@media (max-width: 760px) { .caps { grid-template-columns: 1fr; gap: 28px; } }\n\n/* ---------- footer ---------- */\nfooter { border-top: 1px solid var(--black); padding: clamp(40px, 7vh, 80px) var(--pad) 32px; }\nfooter .label { display: block; margin-bottom: 18px; }\nfooter .mail { font-size: clamp(22px, 3.4vw, 40px); font-weight: 500; letter-spacing: -0.02em; }\nfooter .base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: clamp(36px, 6vh, 64px); font-size: 12px; color: var(--light); }\nfooter .base a { color: var(--grey); }\nfooter .base a:hover { color: var(--black); }\n\n/* ============================================================\n   CASE PAGES\n   ============================================================ */\n.case-top { padding: clamp(44px, 8vh, 96px) var(--pad) 0; }\n.case-top .label { display: block; margin-bottom: 20px; }\n.case-top h1 { font-size: clamp(28px, 4vw, 56px); max-width: 920px; letter-spacing: -0.025em; }\n.case-top .lede { margin-top: 22px; font-size: clamp(16px, 1.6vw, 18px); max-width: 640px; }\n\n/* spec sheet */\n.spec { margin: clamp(36px, 6vh, 64px) var(--pad) 0; border-top: 1px solid var(--black); }\n.spec .srow { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }\n.spec .srow .k { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--light); padding-top: 3px; }\n@media (max-width: 600px) { .spec .srow { grid-template-columns: 110px 1fr; } }\n\n/* outcomes strip — monochrome, hairlines */\n.outcomes { margin: clamp(48px, 8vh, 90px) var(--pad) 0; }\n.outcomes .label { display: block; margin-bottom: 0; padding-bottom: 12px; }\n.out-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--black); }\n.out { padding: 28px 24px 32px 0; border-bottom: 1px solid var(--line); }\n.out + .out { padding-left: 32px; border-left: 1px solid var(--line); }\n.out .n { font-size: clamp(40px, 5vw, 68px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }\n.out .l { font-size: 13px; color: var(--grey); margin-top: 12px; max-width: 240px; line-height: 1.5; }\n@media (max-width: 760px) {\n  .out-grid { grid-template-columns: 1fr; }\n  .out + .out { padding-left: 0; border-left: none; }\n}\n\n/* sections */\n.sec { padding: clamp(56px, 9vh, 110px) var(--pad) 0; }\n.sec .col { max-width: 680px; }\n.sec .label { display: block; margin-bottom: 16px; }\n.sec h2 { font-size: clamp(22px, 2.6vw, 32px); margin-bottom: 18px; max-width: 680px; }\n.sec p { max-width: 680px; }\n.sec p + p { margin-top: 14px; }\n\n/* images: full-bleed, no frames */\n.img-full { margin-top: clamp(32px, 5vh, 56px); }\n.img-full img { width: 100%; border: 1px solid var(--line); }\n.img-full.bare img { border: none; }\n.img-cap { font-size: 12px; color: var(--light); letter-spacing: .04em; text-transform: uppercase; margin-top: 10px; }\n.img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(32px, 5vh, 56px); }\n.img-pair img { width: 100%; border: 1px solid var(--line); }\n@media (max-width: 700px) { .img-pair { grid-template-columns: 1fr; } }\n\n/* numbered decisions — hairline list */\n.dlist { border-top: 1px solid var(--black); margin-top: 36px; max-width: 820px; }\n.d {\n  display: grid; grid-template-columns: 64px 1fr; gap: 24px;\n  padding: 28px 0; border-bottom: 1px solid var(--line);\n}\n.d .dn { font-size: 13px; color: var(--light); font-variant-numeric: tabular-nums; padding-top: 4px; }\n.d h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }\n.d p { font-size: 15px; }\n@media (max-width: 600px) { .d { grid-template-columns: 36px 1fr; } }\n\n/* placeholders */\n.ph { background: var(--amber-bg); border-bottom: 1px dashed var(--amber-bd); padding: 0 4px; font-weight: 600; color: var(--amber-tx); }\n.ph-note {\n  border: 1px dashed var(--amber-bd); background: var(--amber-bg); color: var(--amber-tx);\n  font-size: 13px; line-height: 1.55; padding: 14px 16px; margin-top: 24px; max-width: 680px;\n}\n\n/* next case */\n.next { margin-top: clamp(64px, 10vh, 120px); border-top: 1px solid var(--black); }\n.next a {\n  display: grid; grid-template-columns: 64px 1fr 90px; gap: 24px; align-items: baseline;\n  padding: 32px var(--pad); transition: padding-left .35s cubic-bezier(.2,.6,.2,1);\n}\n.next a:hover { padding-left: calc(var(--pad) + 16px); }\n.next .no { font-size: 13px; color: var(--light); }\n.next .name { font-size: clamp(24px, 3.2vw, 42px); font-weight: 500; letter-spacing: -0.025em; }\n.next .ar { text-align: right; font-size: 20px; }\n\n/* ---------- about ---------- */\n.about { padding: clamp(48px, 9vh, 110px) var(--pad) 0; }\n.about h1 { font-size: clamp(24px, 3vw, 40px); max-width: 820px; line-height: 1.25; }\n.about h1 .dim { color: var(--light); }\n.about-body { display: grid; grid-template-columns: 260px 1fr; gap: clamp(32px, 5vw, 80px); padding: clamp(40px, 7vh, 72px) var(--pad); align-items: start; }\n.about-body img { width: 100%; filter: grayscale(1); border: 1px solid var(--line); }\n.about-body .bio { max-width: 640px; }\n.about-body .bio p + p { margin-top: 14px; }\n@media (max-width: 760px) { .about-body { grid-template-columns: 1fr; } .about-body img { max-width: 240px; } }\n\n.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page\u003eheader.sticky\u003ediv.mx-auto{padding:18px 24px}\n.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page\u003eheader.sticky\u003ediv.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}\n.portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page\u003eheader.sticky\u003ediv.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"\"],\"q\":\"\",\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",16],[[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/00unruea3w~bq.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/01xlw8hd842-c.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/_next/static/chunks/0d3shmwh5_nmn.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"className\":\"h-full antialiased\",\"children\":[\"$\",\"body\",null,{\"className\":\"min-h-full flex flex-col\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$3\",\"errorStyles\":[],\"errorScripts\":[[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0gv0xfea3rrfl.js\",\"async\":true}]],\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]]}],{\"children\":[[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"div\",null,{\"className\":\"portfolio-home-page light min-h-screen bg-background text-fg-primary\",\"children\":[[\"$\",\"header\",null,{\"className\":\"sticky top-0 z-50 border-b border-border bg-background/90 text-[13px] font-medium backdrop-blur-md\",\"children\":[\"$\",\"div\",null,{\"className\":\"mx-auto flex max-w-[1120px] items-baseline justify-between gap-6 px-6 py-[18px]\",\"children\":[[\"$\",\"$L5\",null,{\"href\":\"/\",\"aria-label\":\"Aaron Tang — home\",\"className\":\"text-fg-primary transition-colors hover:text-fg-primary\",\"children\":\"Aaron Tang\"}],[\"$\",\"span\",null,{\"className\":\"hidden text-fg-tertiary md:block\",\"children\":\"Product Designer — Payments \u0026 Crypto\"}],[\"$\",\"nav\",null,{\"aria-label\":\"Primary\",\"className\":\"flex items-center gap-6 text-fg-tertiary\",\"children\":[[\"$\",\"$L5\",null,{\"href\":\"/#work\",\"className\":\"text-fg-primary transition-colors hover:text-fg-primary\",\"children\":\"Work\"}],[\"$\",\"$L5\",null,{\"href\":\"/#about\",\"className\":\"transition-colors hover:text-fg-primary\",\"children\":\"About\"}],[\"$\",\"a\",null,{\"href\":\"mailto:aarontang.design@gmail.com\",\"className\":\"transition-colors hover:text-fg-primary\",\"children\":\"Email\"}]]}]]}]}],[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$6\"}}],\"$L7\",\"$L8\",\"$L9\"]}],[\"$La\"],\"$Lb\"]}],{},null,false,null]},null,false,null],\"$Lc\",false]],\"m\":\"$undefined\",\"G\":[\"$d\",[\"$Le\"]],\"S\":true,\"h\":null,\"s\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\",\"b\":\"Cz2swKR5lpiXa7kOlFeDP\"}\n"])</script><script>self.__next_f.push([1,"10:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"OutletBoundary\"]\n11:\"$Sreact.suspense\"\n13:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"ViewportBoundary\"]\n15:I[97367,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"MetadataBoundary\"]\n7:[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\".portfolio-home .rv{opacity:1;transform:none}.portfolio-home .bar,.portfolio-home footer{display:none}.portfolio-home-page\u003eheader.sticky\u003ediv.mx-auto{padding:18px 24px}.portfolio-home .entry:hover .shot img,.portfolio-home .mini:hover .shot img{transform:none}.portfolio-home .entry:hover .ar,.portfolio-home .entry-featured:hover .shot-ar{color:var(--light);transform:none}.portfolio-home a[href='/project/okx'] .shot-name{color:#fff}.portfolio-home a[href='/project/okx'] .shot{padding:0;background:#161616}.portfolio-home a[href='/project/okx'] .shot img{width:100%;height:100%;object-fit:cover}.portfolio-home a[href='/project/playstation'] .shot-name{color:#fff}.portfolio-home a[href='/project/playstation'] .shot{padding:0;background:#000}.portfolio-home a[href='/project/playstation'] .shot img{width:100%;height:100%;object-fit:cover;object-position:center}\"}}]\nf:Te44,"])</script><script>self.__next_f.push([1,"\u003cheader class=\"intro\"\u003e\n  \u003ch1 class=\"rv\"\u003ePayments, trading, and checkout for OKX, PlayStation, Walmart and Next — \u003cspan class=\"dim\"\u003edesigning the screens where trust decides conversion.\u003c/span\u003e\u003c/h1\u003e\n  \u003cp class=\"sub rv\"\u003eEight years in regulated products. Strategy through post-launch iteration.\u003c/p\u003e\n\u003c/header\u003e\n\n\u003cmain\u003e\n  \u003csection class=\"index rv\"\u003e\n\n    \u003ca class=\"entry entry-featured\" href=\"/project/okx\"\u003e\n      \u003cdiv class=\"shot\"\u003e\n        \u003cimg src=\"/images/okx-recurring-buy-home.png\" alt=\"OKX Pay mobile screens\"\u003e\n        \u003cdiv class=\"shot-copy\"\u003e\n          \u003cdiv class=\"shot-top\"\u003e\n            \u003cspan class=\"shot-tag\"\u003eCrypto payments · 2023—\u003c/span\u003e\n            \u003cspan class=\"shot-ar\"\u003e→\u003c/span\u003e\n          \u003c/div\u003e\n          \u003cdiv class=\"shot-bottom\"\u003e\n            \u003cspan class=\"shot-name\"\u003eOKX Pay\u003c/span\u003e\n            \u003cspan class=\"shot-fact\"\u003eSelf-custody payments as simple as texting — \u003cspan class=\"ph\"\u003e[X%]\u003c/span\u003e completion lift\u003c/span\u003e\n          \u003c/div\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/a\u003e\n\n    \u003ca class=\"entry entry-featured\" href=\"/project/playstation\"\u003e\n      \u003cdiv class=\"shot\"\u003e\n        \u003cimg src=\"/images/playstation-home-cover.png\" alt=\"PlayStation checkout experience\"\u003e\n        \u003cdiv class=\"shot-copy\"\u003e\n          \u003cdiv class=\"shot-top\"\u003e\n            \u003cspan class=\"shot-tag\"\u003eGlobal checkout · 300M+ players\u003c/span\u003e\n            \u003cspan class=\"shot-ar\"\u003e→\u003c/span\u003e\n          \u003c/div\u003e\n          \u003cdiv class=\"shot-bottom\"\u003e\n            \u003cspan class=\"shot-name\"\u003ePlayStation\u003c/span\u003e\n            \u003cspan class=\"shot-fact\"\u003eInstallments for Brazil — market sales doubled\u003c/span\u003e\n          \u003c/div\u003e\n        \u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/a\u003e\n\n    \u003cdiv class=\"mini-grid\"\u003e\n      \u003ca class=\"mini\" href=\"/homepage-test/next-trucking/\"\u003e\n        \u003cdiv class=\"shot\"\u003e\u003cimg src=\"/images/next-trucking-home-cover.svg\" alt=\"Next Trucking dispatching system\"\u003e\u003c/div\u003e\n        \u003cdiv class=\"meta\"\u003e\n          \u003cspan\u003e\n            \u003cspan class=\"name\"\u003eNext Trucking\u003c/span\u003e\n            \u003cdiv class=\"fact\"\u003e$5 loss cut per container · 25% throughput lift\u003c/div\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"no\"\u003e03\u003c/span\u003e\n        \u003c/div\u003e\n      \u003c/a\u003e\n      \u003ca class=\"mini\" href=\"/homepage-test/walmart/\"\u003e\n        \u003cdiv class=\"shot\"\u003e\u003cimg src=\"/images/walmart-gs-home-cover.svg\" alt=\"Walmart Global Sourcing platform\"\u003e\u003c/div\u003e\n        \u003cdiv class=\"meta\"\u003e\n          \u003cspan\u003e\n            \u003cspan class=\"name\"\u003eWalmart GS\u003c/span\u003e\n            \u003cdiv class=\"fact\"\u003e3 products across 6 international markets\u003c/div\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"no\"\u003e04\u003c/span\u003e\n        \u003c/div\u003e\n      \u003c/a\u003e\n      \u003ca class=\"mini\" href=\"https://atangdesign.com/project/rumble\"\u003e\n        \u003cdiv class=\"shot\"\u003e\u003cimg src=\"/images/rumble-home-cover.png\" alt=\"Rumble app and IoT device\"\u003e\u003c/div\u003e\n        \u003cdiv class=\"meta\"\u003e\n          \u003cspan\u003e\n            \u003cspan class=\"name\"\u003eRumble\u003c/span\u003e\n            \u003cdiv class=\"fact\"\u003eMobile app + IoT device\u003c/div\u003e\n          \u003c/span\u003e\n          \u003cspan class=\"no\"\u003e05\u003c/span\u003e\n        \u003c/div\u003e\n      \u003c/a\u003e\n    \u003c/div\u003e\n\n  \u003c/section\u003e\n\n  \u003csection class=\"caps\"\u003e\n    \u003cdiv class=\"c rv\"\u003e\n      \u003cspan class=\"label\"\u003eDomain\u003c/span\u003e\n      \u003cp\u003ePayments, crypto, and commerce in regulated markets — flows where compliance, fraud, and irreversibility constrain every screen.\u003c/p\u003e\n    \u003c/div\u003e\n    \u003cdiv class=\"c rv\"\u003e\n      \u003cspan class=\"label\"\u003eApproach\u003c/span\u003e\n      \u003cp\u003eAbsorb complexity into the system, not the user. Fewer destinations, less UI, decisions framed in business terms.\u003c/p\u003e\n    \u003c/div\u003e\n    \u003cdiv class=\"c rv\"\u003e\n      \u003cspan class=\"label\"\u003eBackground\u003c/span\u003e\n      \u003cp\u003eTrained in architecture. \"Less is more\" carried over — \u003ca class=\"ul\" href=\"https://atangdesign.com/architecture\"\u003esee architectural work\u003c/a\u003e.\u003c/p\u003e\n    \u003c/div\u003e\n  \u003c/section\u003e\n\u003c/main\u003e\n\n\u003c/div\u003e\u003c/div\u003e\u003c/div\u003e"])</script><script>self.__next_f.push([1,"8:[\"$\",\"div\",null,{\"className\":\"portfolio-home\",\"dangerouslySetInnerHTML\":{\"__html\":\"$f\"}}]\n9:[\"$\",\"footer\",null,{\"className\":\"border-t border-border py-10\",\"role\":\"contentinfo\",\"children\":[\"$\",\"div\",null,{\"className\":\"mx-auto flex max-w-[1024px] flex-wrap items-center justify-between gap-6 px-6 text-[13px] text-fg-quaternary\",\"children\":[[\"$\",\"div\",null,{\"className\":\"inline-flex items-center gap-3.5\",\"children\":[[\"$\",\"span\",null,{\"className\":\"font-mono font-medium tracking-wide text-fg-secondary\",\"children\":\"AT\"}],[\"$\",\"span\",null,{\"children\":[\"©\",\" \",2026,\" Aaron Tang\"]}]]}],[\"$\",\"div\",null,{\"className\":\"inline-flex items-center gap-4\",\"children\":[[\"$\",\"a\",null,{\"href\":\"mailto:aarontang.design@gmail.com\",\"className\":\"text-fg-tertiary transition-colors hover:text-fg-primary\",\"children\":\"aarontang.design@gmail.com\"}],[\"$\",\"a\",null,{\"href\":\"https://www.linkedin.com/in/aaron-tang\",\"aria-label\":\"LinkedIn\",\"className\":\"inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-fg-tertiary transition-colors hover:border-[#2e3138] hover:text-fg-primary\",\"children\":[\"$\",\"svg\",null,{\"width\":\"14\",\"height\":\"14\",\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V21h-4v-5.3c0-1.27-.03-2.9-1.77-2.9-1.77 0-2.05 1.38-2.05 2.8V21H10V9z\"}]}]}]]}]]}]}]\na:[\"$\",\"script\",\"script-0\",{\"src\":\"/_next/static/chunks/0ka051yepewro.js\",\"async\":true,\"nonce\":\"$undefined\"}]\nb:[\"$\",\"$L10\",null,{\"children\":[\"$\",\"$11\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@12\"}]}]\nc:[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$L13\",null,{\"children\":\"$L14\"}],[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$L15\",null,{\"children\":[\"$\",\"$11\",null,{\"name\":\"Next.Metadata\",\"children\":\"$L16\"}]}]}],null]}]\ne:[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/chunks/00unruea3w~bq.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]\n"])</script><script>self.__next_f.push([1,"14:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"17:I[27201,[\"/_next/static/chunks/01xlw8hd842-c.js\",\"/_next/static/chunks/0d3shmwh5_nmn.js\"],\"IconMark\"]\n12:null\n16:[[\"$\",\"title\",\"0\",{\"children\":\"Aaron Tang — Product Designer\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Product designer specializing in payments, crypto, and regulated products. OKX, PlayStation, Walmart, Next Trucking.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.0x3dzn~oxb6tn.ico\",\"sizes\":\"256x256\",\"type\":\"image/x-icon\"}],[\"$\",\"$L17\",\"3\",{}]]\n"])</script></body></html>
